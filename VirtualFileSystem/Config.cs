@@ -8,9 +8,9 @@ namespace VirtualFileSystem
 {
     static class Config
     {
-        public static const long GROUPS = 1024;
-        public static const long BLOCK_SIZE = 1024;
-        public static const long BLOCKS_PER_GROUP = 100;
-        public static const long INODES_PER_GROUP = 10;
+        public const long GROUPS = 1024;
+        public const long BLOCK_SIZE = 1024;
+        public const long BLOCKS_PER_GROUP = 100;
+        public const long INODES_PER_GROUP = 10;
     }
 }

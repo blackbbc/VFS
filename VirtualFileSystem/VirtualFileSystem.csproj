@@ -44,9 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Core\Block.cs" />
+    <Compile Include="Core\BlockGroup.cs" />
+    <Compile Include="Core\Entry.cs" />
+    <Compile Include="Core\File.cs" />
     <Compile Include="Core\INode.cs" />
     <Compile Include="Core\SuperBlock.cs" />
+    <Compile Include="Core\Utils.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
