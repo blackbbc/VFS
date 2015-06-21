@@ -12,6 +12,7 @@ using VirtualFileSystem.Core;
 
 namespace VirtualFileSystem
 {
+
     public partial class Form1 : Form
     {
         private File file;
@@ -19,11 +20,16 @@ namespace VirtualFileSystem
         public Form1()
         {
             InitializeComponent();
+
+            //初始化全局块组
+            for (int i = 0; i < Config.GROUPS; i++)
+                VFS.BLOCK_GROUPS[i] = new BlockGroup(i);
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            file = new File("Hello", "World");
+            file = new File("Hello");
 
             MessageBox.Show("创建成功");
             

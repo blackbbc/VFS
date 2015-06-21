@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+using System.Collections;
+
 namespace VirtualFileSystem.Core
 {
     class BlockGroup
@@ -12,6 +15,8 @@ namespace VirtualFileSystem.Core
 
         SuperBlock super_block;
 
+        int block_group_index; //块组序号
+
         long g_free_blocks_count;
         long g_free_inodes_count;
 
@@ -19,11 +24,12 @@ namespace VirtualFileSystem.Core
         bool[] inode_index;
 
         INode[] inodes;
+        Block[] blocks;
 
-        Block[] block;
-
-        public BlockGroup()
+        public BlockGroup(int block_group_index)
         {
+            this.block_group_index = block_group_index;
+
             this.super_block = new SuperBlock();
 
             this.g_free_blocks_count = Config.BLOCKS_PER_GROUP;
@@ -32,8 +38,60 @@ namespace VirtualFileSystem.Core
             this.block_index = new bool[Config.BLOCKS_PER_GROUP];
             this.inode_index = new bool[Config.INODES_PER_GROUP];
 
-            this.block = new Block[Config.BLOCKS_PER_GROUP];
+            this.blocks = new Block[Config.BLOCKS_PER_GROUP];
             this.inodes = new INode[Config.INODES_PER_GROUP];
+        }
+
+        public bool hasFreeINode()
+        {
+            if (g_free_inodes_count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool hasFreeBlock()
+        {
+            if (g_free_blocks_count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public INode getFreeInode()
+        {
+            for (int i = 0; i < Config.INODES_PER_GROUP; i++)
+            {
+                if (!inode_index[i])
+                {
+                    inode_index[i] = true;
+                    inodes[i] = new INode(this.block_group_index, i);
+                    return inodes[i];
+                }
+            }
+
+            //不会到这一步
+            return null;
+        }
+
+        public void updateBlockIndex(int index, bool flag)
+        {
+            if (flag)
+                this.g_free_blocks_count -= 1;
+            else
+                this.g_free_blocks_count += 1;
+
+            this.block_index[index] = flag;
+        }
+
+        public ArrayList getFreeBlocks()
+        {
+            ArrayList free_blocks = new ArrayList();
+            for (int i = 0; i < Config.BLOCKS_PER_GROUP; i++)
+                if (!block_index[i])
+                    free_blocks.Add(blocks[i]);
+
+            return free_blocks;
         }
 
     }

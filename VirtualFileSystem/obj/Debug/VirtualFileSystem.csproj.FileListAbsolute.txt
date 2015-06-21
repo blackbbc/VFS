@@ -1,9 +1,9 @@
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\bin\Debug\VirtualFileSystem.exe.config
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\bin\Debug\VirtualFileSystem.exe
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\bin\Debug\VirtualFileSystem.pdb
-D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.csprojResolveAssemblyReference.cache
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.Form1.resources
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.Properties.Resources.resources
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.csproj.GenerateResource.Cache
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.exe
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.pdb
+D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.csprojResolveAssemblyReference.cache
