@@ -64,7 +64,8 @@ namespace VirtualFileSystem.Core
             {
                 //首先获得一段字符串
                 char[] content_sequence = new char[1024];
-
+                //Array.ConstrainedCopy(contents, i * 1024, content_sequence, 0, 1024);
+                Array.Copy(contents, 1024 * i, content_sequence, 0, Math.Min(1024, length - i * 1024));
 
                 //然后写
 

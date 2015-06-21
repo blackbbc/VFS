@@ -26,12 +26,14 @@ namespace VirtualFileSystem.Core
 
             this.block_group_index = block_group_index;
             this.inode_index = inode_index;
+
         }
 
         public void clearBlock()
         {
             foreach (Block block in this.blocks)
-                block.delete();
+                if (block != null)
+                    block.delete();
         }
     }
 

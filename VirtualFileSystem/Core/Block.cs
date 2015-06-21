@@ -13,10 +13,10 @@ namespace VirtualFileSystem.Core
 {
     class Block
     {
-        public char[] data;
-        public Block[] blocks;
-        private Boolean flag;
-        public bool effective;
+        public char[] data;        //数据
+        public Block[] blocks;     //索引表
+        private Boolean flag;      //表示类型
+        public bool effective;     //是否有效
 
         private int block_group_index; //所在块组号
         private int block_index; //所在块号
@@ -31,6 +31,7 @@ namespace VirtualFileSystem.Core
 
         public void saveData(char[] newData)
         {
+            this.flag = true;
             this.effective = true;
             this.data = newData;
             this.blocks = null;
@@ -39,6 +40,7 @@ namespace VirtualFileSystem.Core
 
         public void saveBlocks(ArrayList blocks)
         {
+            this.flag = false;
             this.effective = true;
             this.blocks = new Block[1024];
 
@@ -51,16 +53,17 @@ namespace VirtualFileSystem.Core
 
         public String getContent()
         {
+            if (!this.effective)
+                return "";
+
             if (flag)
-            {
-                return this.data.ToString();
-            }
+                return new String(this.data);
             else
             {
                 String temp = "";
 
                 foreach (Block block in this.blocks)
-                    temp +=block.getContent();
+                    temp += block.getContent();
 
                 return temp;
             }
@@ -68,10 +71,12 @@ namespace VirtualFileSystem.Core
 
         public void delete()
         {
+            if (!this.effective)
+                return;
+            this.effective = false;
+
             if (flag)
-            {
                 VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, false);
-            }
             else
             {
                 foreach (Block block in this.blocks)

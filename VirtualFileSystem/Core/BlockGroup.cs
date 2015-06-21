@@ -13,7 +13,7 @@ namespace VirtualFileSystem.Core
     {
         //块组
 
-        SuperBlock super_block;
+        SuperBlock super_block; //超级块
 
         int block_group_index; //块组序号
 
@@ -40,6 +40,11 @@ namespace VirtualFileSystem.Core
 
             this.blocks = new Block[Config.BLOCKS_PER_GROUP];
             this.inodes = new INode[Config.INODES_PER_GROUP];
+
+            for (int i = 0; i < Config.BLOCKS_PER_GROUP; i++)
+                blocks[i] = new Block(this.block_group_index, i);
+            for (int i = 0; i < Config.INODES_PER_GROUP; i++)
+                inodes[i] = new INode(this.block_group_index, i);
         }
 
         public bool hasFreeINode()
@@ -64,8 +69,6 @@ namespace VirtualFileSystem.Core
             {
                 if (!inode_index[i])
                 {
-                    inode_index[i] = true;
-                    inodes[i] = new INode(this.block_group_index, i);
                     return inodes[i];
                 }
             }

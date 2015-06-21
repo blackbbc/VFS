@@ -37,7 +37,16 @@ namespace VirtualFileSystem
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(file.getName(), file.getContent());
+            MessageBox.Show(file.getContent());
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            String content = textBox1.Text;
+
+            file.save(content);
+
+            MessageBox.Show(content);
         }
     }
 }
