@@ -15,6 +15,7 @@ namespace VirtualFileSystem
         public static Directory rootDir;
         public static BlockGroup[] BLOCK_GROUPS = new BlockGroup[Config.GROUPS];
 
+        //获取空闲空间
         public static ArrayList getFreeBlocks(int num)
         {
             ArrayList result = new ArrayList();

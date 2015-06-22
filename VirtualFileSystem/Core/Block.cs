@@ -14,13 +14,12 @@ namespace VirtualFileSystem.Core
     class Block
     {
         public char[] data;        //数据
-        public Block[] blocks;     //索引表
-        private Boolean flag;      //表示类型
+        public ArrayList blocks;   //索引表
+        private int flag;      //表示类型 0 -- 数据 1 -- 一级索引 2 -- 二级索引
         public bool effective;     //是否有效
 
         private int block_group_index; //所在块组号
         private int block_index; //所在块号
-
 
         public Block(int block_group_index, int block_index)
         {
@@ -29,34 +28,58 @@ namespace VirtualFileSystem.Core
             this.block_index = block_index;
         }
 
+        public bool isFull()
+        {
+            if (blocks.Count <= 1024)
+                return false;
+            else
+                return true;
+        }
+
+        public void setFlag(int flag)
+        {
+            //表示开始使用了
+            this.effective = true;
+            this.flag = flag;
+            if (this.flag == 0)
+            {
+                this.blocks = null;
+            }
+            else
+            {
+                this.blocks = new ArrayList();
+                this.data = null;
+            }
+
+            //刷新位图
+            VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, true);
+        }
+
         public void saveData(char[] newData)
         {
-            this.flag = true;
-            this.effective = true;
-            this.data = newData;
-            this.blocks = null;
-            VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, true);
+            if (this.flag == 0)
+            {
+                this.data = newData;
+            }
+            else
+            {
+                //找一个新的block存储
+                ArrayList freeBlocks = VFS.getFreeBlocks(1);
+                Block freeBlock = freeBlocks[0] as Block;
+                freeBlock.setFlag(this.flag - 1);
+                freeBlock.saveData(newData);
+
+                blocks.Add(freeBlock);
+            }
         }
 
-        public void saveBlocks(ArrayList blocks)
-        {
-            this.flag = false;
-            this.effective = true;
-            this.blocks = new Block[1024];
-
-            for (int i = 0; i < blocks.Count; i++ )
-                this.blocks[i] = (Block)blocks[i];
-
-            this.data = null;
-            VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, true);
-        }
 
         public long getSize()
         {
             if (!this.effective)
                 return 0;
 
-            if (flag)
+            if (flag == 0)
                 return 1024;
             else
             {
@@ -72,7 +95,7 @@ namespace VirtualFileSystem.Core
             if (!this.effective)
                 return "";
 
-            if (flag)
+            if (flag == 0)
                 return new String(this.data);
             else
             {
@@ -89,15 +112,17 @@ namespace VirtualFileSystem.Core
         {
             if (!this.effective)
                 return;
+
             this.effective = false;
 
-            if (flag)
-                VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, false);
-            else
+            //刷新位图
+            VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, false);
+
+            //刷新儿子
+            if (flag != 0)
             {
                 foreach (Block block in this.blocks)
                     block.delete();
-                VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, false);
             }
         }
 

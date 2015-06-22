@@ -48,8 +48,6 @@ namespace VirtualFileSystem.Core
 
         public void save(String content)
         {
-            Block first_index;
-
             //先擦除blocks
             clearBlock();
 
@@ -62,50 +60,56 @@ namespace VirtualFileSystem.Core
             if (length == 0)
                 return;
 
-            //寻找空闲block
-            ArrayList free_blocks = VFS.getFreeBlocks(num + 1);
+            //初始化blocks
+            ArrayList free_blocks = VFS.getFreeBlocks(15);
 
-            //存储一级索引
-            ArrayList first_index_blocks = new ArrayList();
 
-            first_index = (Block)free_blocks[0];
-            free_blocks.Remove(first_index);
+            for (int i = 0; i < Math.Min(12, num); i++)
+            {
+                blocks[i] = free_blocks[i] as Block;
+                blocks[i].setFlag(0);
+            }
+            if (num > 12)
+            {
+                blocks[12] = free_blocks[12] as Block;
+                blocks[12].setFlag(1);
+            }
+            if (num > 12 + Config.BLOCK_SIZE)
+            {
+                blocks[13] = free_blocks[13] as Block;
+                blocks[13].setFlag(2);
+            }
+            if (num > 12 + Config.BLOCK_SIZE + Config.BLOCK_SIZE * Config.BLOCK_SIZE)
+            {
+                blocks[14] = free_blocks[14] as Block;
+                blocks[14].setFlag(3);
+            }
+
+            int currentBlockIndex = 0;
 
             for (int i = 0; i < num; i++)
             {
-                //首先获得一段字符串
+                //首先获取一段字符串
                 long realBlockSize = Math.Min(Config.BLOCK_SIZE, length - i * Config.BLOCK_SIZE);
                 char[] content_sequence = new char[realBlockSize];
                 Array.Copy(contents, Config.BLOCK_SIZE * i, content_sequence, 0, realBlockSize);
 
                 //然后写
 
-                if (i < 12)
+                if (currentBlockIndex < 12)
                 {
                     //直接索引
-                    Block block = (Block)free_blocks[0];
-                    block.saveData(content_sequence);
-                    blocks[i] = block;
-                    free_blocks.Remove(block);
+                    blocks[currentBlockIndex].saveData(content_sequence);
+                    currentBlockIndex++;
                 }
                 else
                 {
-                    //写到一级索引里
-                    Block block = (Block)free_blocks[0];
-                    block.saveData(content_sequence);
-                    first_index_blocks.Add(block);
-                    free_blocks.Remove(block);
+                    //分级索引
+                    blocks[currentBlockIndex].saveData(content_sequence);
+                    if (blocks[currentBlockIndex].isFull())
+                        currentBlockIndex++;
                 }
-
             }
-
-            //写回一级索引
-            if (num > 12)
-            {
-                first_index.saveBlocks(first_index_blocks);
-                blocks[13] = first_index;
-            }
-
         }
 
         public String getContent()
