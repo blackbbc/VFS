@@ -51,6 +51,22 @@ namespace VirtualFileSystem.Core
             VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, true);
         }
 
+        public long getSize()
+        {
+            if (!this.effective)
+                return 0;
+
+            if (flag)
+                return 1024;
+            else
+            {
+                long size = 0;
+                foreach (Block block in this.blocks)
+                    size += block.getSize();
+                return size;
+            }
+        }
+
         public String getContent()
         {
             if (!this.effective)

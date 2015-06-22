@@ -50,9 +50,8 @@ namespace VirtualFileSystem.Core
 
         public override string getSize()
         {
-            //需要重写！
-            return "1kb";
-            //throw new NotImplementedException();
+            long size = inode.getSize();
+            return size.ToString() + "kb";
         }
 
         public override Entry add(Entry entry)
@@ -91,74 +90,13 @@ namespace VirtualFileSystem.Core
         //写文件
         public void save(String content)
         {
-            Block first_index;
-
-            //先擦除blocks
-            this.inode.clearBlock();
-
-            //然后写
-            char[] contents = content.ToCharArray();
-            //长度
-            int length = contents.GetLength(0);
-            int num = length / 1024 + 1;
-
-            //寻找空闲block
-            ArrayList free_blocks = VFS.getFreeBlocks(num+1);
-
-            //存储一级索引
-            ArrayList first_index_blocks = new ArrayList();
-
-            first_index = (Block)free_blocks[0];
-            free_blocks.Remove(first_index);
-
-            for (int i = 0; i < num; i++)
-            {
-                //首先获得一段字符串
-                char[] content_sequence = new char[1024];
-                //Array.ConstrainedCopy(contents, i * 1024, content_sequence, 0, 1024);
-                Array.Copy(contents, 1024 * i, content_sequence, 0, Math.Min(1024, length - i * 1024));
-
-                //然后写
-
-                if (i < 12)
-                {
-                    Block block = (Block)free_blocks[0];
-                    block.saveData(content_sequence);
-                    inode.blocks[i] = block;
-                    free_blocks.Remove(block);
-                }
-                else
-                {
-                    //写到一级索引里
-                    Block block = (Block)free_blocks[0];
-                    block.saveData(content_sequence);
-                    first_index_blocks.Add(block);
-                    free_blocks.Remove(block);
-                }
-
-            }
-
-            if (num > 12)
-            {
-                first_index.saveBlocks(first_index_blocks);
-                inode.blocks[13] = first_index;
-            }
-
+            this.inode.save(content);
         }
 
         //读文件
         public override String getContent()
         {
-            String content = "";
-
-            for (int i = 0; i < 15; i++ )
-            {
-                if (this.inode.blocks[i] != null)
-                    content += this.inode.blocks[i].getContent();
-                else
-                    break;
-            }
-                return content;
+            return this.inode.getContent();
         }
     }
 }

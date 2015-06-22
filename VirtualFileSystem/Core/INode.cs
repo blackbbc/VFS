@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Collections;
+
 using VirtualFileSystem.Core;
 
 namespace VirtualFileSystem.Core
@@ -29,6 +31,90 @@ namespace VirtualFileSystem.Core
             this.block_group_index = block_group_index;
             this.inode_index = inode_index;
 
+        }
+
+        public long getSize()
+        {
+            long size = 0;
+            for (int i = 0; i < 15; i++)
+            {
+                if (blocks[i] != null)
+                    size += blocks[i].getSize();
+                else
+                    break;
+            }
+            return size;
+        }
+
+        public void save(String content)
+        {
+            Block first_index;
+
+            //先擦除blocks
+            clearBlock();
+
+            //然后写
+            char[] contents = content.ToCharArray();
+            //长度
+            int length = contents.GetLength(0);
+            int num = length / 1024 + 1;
+
+            //寻找空闲block
+            ArrayList free_blocks = VFS.getFreeBlocks(num + 1);
+
+            //存储一级索引
+            ArrayList first_index_blocks = new ArrayList();
+
+            first_index = (Block)free_blocks[0];
+            free_blocks.Remove(first_index);
+
+            for (int i = 0; i < num; i++)
+            {
+                //首先获得一段字符串
+                char[] content_sequence = new char[1024];
+                Array.Copy(contents, 1024 * i, content_sequence, 0, Math.Min(1024, length - i * 1024));
+
+                //然后写
+
+                if (i < 12)
+                {
+                    //直接索引
+                    Block block = (Block)free_blocks[0];
+                    block.saveData(content_sequence);
+                    blocks[i] = block;
+                    free_blocks.Remove(block);
+                }
+                else
+                {
+                    //写到一级索引里
+                    Block block = (Block)free_blocks[0];
+                    block.saveData(content_sequence);
+                    first_index_blocks.Add(block);
+                    free_blocks.Remove(block);
+                }
+
+            }
+
+            //写回一级索引
+            if (num > 12)
+            {
+                first_index.saveBlocks(first_index_blocks);
+                blocks[13] = first_index;
+            }
+
+        }
+
+        public String getContent()
+        {
+            String content = "";
+            for (int i = 0; i < 15; i++)
+            {
+                if (blocks[i] != null)
+                    content += blocks[i].getContent();
+                else
+                    break;
+            }
+            return content;
         }
 
         public void clearBlock()
