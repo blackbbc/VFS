@@ -93,6 +93,7 @@ namespace VirtualFileSystem.Core
         }
 
         //写文件
+                    
         public void save(String content)
         {
             this.inode.save(content);
@@ -102,6 +103,15 @@ namespace VirtualFileSystem.Core
         public override String getContent()
         {
             return this.inode.getContent();
+        }
+
+        //删除硬盘数据
+        public override void deleteData()
+        {
+            //删除block
+            inode.clearBlock();
+            //删除inode
+            inode.delete();
         }
     }
 }

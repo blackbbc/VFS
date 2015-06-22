@@ -189,6 +189,8 @@ namespace VirtualFileSystem
                 enterDirectory(currentDir);
             else if (keyData == Keys.F2)
                 OnRename();
+            else if (keyData == Keys.Delete)
+                OnDelete();
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -334,6 +336,36 @@ namespace VirtualFileSystem
         private void 大小ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OnSort(3);
+        }
+
+        private void OnDelete()
+        {
+            Entry deletedEntry = listView1.SelectedItems[0].Tag as Entry;
+            var result = MessageBox.Show("确定要删除"+deletedEntry.getName()+"吗", "删除"+deletedEntry.getType(), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                //删除硬盘数据
+                deletedEntry.deleteData();
+
+                //删除目录树数据
+                currentDir.deleteEntry(deletedEntry);
+                if (deletedEntry.getType() == "文件夹")
+                {
+                    //刷新TreeNode
+                    Directory deletedDir = deletedEntry as Directory;
+                    TreeNode deletedTreeNode = deletedDir.getLinkedTreeNode();
+                    deletedTreeNode.Parent.Nodes.Remove(deletedTreeNode);
+                }
+
+                enterDirectory(currentDir);
+            }
+        }
+
+        //删除
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnDelete();
         }
 
 

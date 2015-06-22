@@ -125,5 +125,12 @@ namespace VirtualFileSystem.Core
                 return false;
         }
 
+        public override void deleteData() { }
+
+        public void deleteEntry(Entry entry)
+        {
+            directory.Remove(entry);
+        }
+
     }
 }

@@ -248,7 +248,7 @@
             this.toolStripSeparator3,
             this.新建ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 132);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(125, 110);
             // 
             // 排序方式ToolStripMenuItem
             // 
@@ -358,7 +358,7 @@
             this.toolStripSeparator6,
             this.属性ToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(134, 154);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(146, 154);
             // 
             // 打开ToolStripMenuItem
             // 
@@ -391,8 +391,10 @@
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.删除ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // 重命名ToolStripMenuItem
             // 

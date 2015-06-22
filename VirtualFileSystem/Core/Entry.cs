@@ -31,5 +31,7 @@ namespace VirtualFileSystem.Core
 
         public abstract ListViewItem getListViewItem();
 
+        public abstract void deleteData();
+
     }
 }

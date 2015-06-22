@@ -88,6 +88,15 @@ namespace VirtualFileSystem.Core
             this.block_index[index] = flag;
         }
 
+        public void updateINodeIndex(int index, bool flag)
+        {
+            if (flag)
+                this.g_free_inodes_count -= 1;
+            else
+                this.g_free_inodes_count += 1;
+            this.inode_index[index] = flag;
+        }
+
         public ArrayList getFreeBlocks()
         {
             ArrayList free_blocks = new ArrayList();
