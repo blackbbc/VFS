@@ -53,6 +53,20 @@ namespace VirtualFileSystem
             treeView1.Nodes.Add(rootNode);
         }
 
+        private void enterDirectory(Directory dir)
+        {
+            listView1.Items.Clear();
+
+            ArrayList entries = dir.getEntries();
+
+            foreach (Entry entry in entries)
+            {
+                listView1.Items.Add(entry.getListViewItem());
+            }
+
+            //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); //自动修改宽度
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -70,31 +84,9 @@ namespace VirtualFileSystem
             listView1.Items.Clear();
 
             Directory selectedDir = (Directory)selectedNode.Tag;
-            ArrayList entries = selectedDir.getEntries();
 
-            foreach (Entry entry in entries)
-            {
-                listView1.Items.Add(entry.getListViewItem());
-            }
+            enterDirectory(selectedDir);
 
-            //ListViewItem directory = new ListViewItem("sweet", 0);
-            //ListViewItem file = new ListViewItem("1.txt", 1);
-            //ListViewItem.ListViewSubItem[] subItems;
-
-            //subItems = new ListViewItem.ListViewSubItem[]
-            //{
-            //    new ListViewItem.ListViewSubItem(file, "Directory"),
-            //    new ListViewItem.ListViewSubItem(file, "今天"),
-            //    new ListViewItem.ListViewSubItem(file, "1kb")
-            //};
-
-            //directory.SubItems.AddRange(subItems);
-
-            //listView1.Items.Add(directory);
-            //listView1.Items.Add(file);
-
-
-            //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); //自动修改宽度
 
         }
 
@@ -107,6 +99,27 @@ namespace VirtualFileSystem
         private void listView1_AfterLabelEdit(object sender, LabelEditEventArgs e)
         {
             MessageBox.Show("修改成功！");
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            Entry selectedEntry = (Entry)listView1.SelectedItems[0].Tag;
+
+            if (selectedEntry.getType() == "文本文件")
+            {
+                //打开编辑器
+                File file = (File)selectedEntry;
+                TextEditor textEditor = new TextEditor(file);
+                textEditor.Show();
+            }
+            else
+            {
+                //进入目录
+                Directory directory = (Directory)selectedEntry;
+                enterDirectory(directory);
+
+            }
+
         }
 
     }

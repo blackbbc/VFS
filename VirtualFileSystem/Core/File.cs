@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace VirtualFileSystem.Core
 {
-    class File: Entry
+    public class File: Entry
     {
         private INode inode;
 
@@ -72,6 +72,7 @@ namespace VirtualFileSystem.Core
         public override ListViewItem getListViewItem()
         {
             ListViewItem item = new ListViewItem(name, 1);
+            item.Tag = this;
 
             ListViewItem.ListViewSubItem[] subItems;
 

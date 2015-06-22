@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace VirtualFileSystem.Core
 {
-    class Directory: Entry
+    public class Directory: Entry
     {
         private String name;
         private long modifiedTime;
@@ -79,6 +79,7 @@ namespace VirtualFileSystem.Core
         public override ListViewItem getListViewItem()
         {
             ListViewItem item = new ListViewItem(name, 0);
+            item.Tag = this;
 
             ListViewItem.ListViewSubItem[] subItems;
 

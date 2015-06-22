@@ -37,8 +37,8 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.listView1 = new System.Windows.Forms.ListView();
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lastModified = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lastModified = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.size = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.button1 = new System.Windows.Forms.Button();
@@ -122,6 +122,7 @@
             this.listView1.FullRowSelect = true;
             this.listView1.LabelEdit = true;
             this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(946, 534);
             this.listView1.SmallImageList = this.imageList2;
@@ -129,21 +130,22 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.listView1_AfterLabelEdit);
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
             // name
             // 
             this.name.Text = "名称";
             this.name.Width = 200;
             // 
-            // lastModified
-            // 
-            this.lastModified.Text = "修改日期";
-            this.lastModified.Width = 150;
-            // 
             // type
             // 
             this.type.Text = "类型";
             this.type.Width = 150;
+            // 
+            // lastModified
+            // 
+            this.lastModified.Text = "修改日期";
+            this.lastModified.Width = 150;
             // 
             // size
             // 
