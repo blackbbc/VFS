@@ -24,6 +24,9 @@ namespace VirtualFileSystem
         //剪贴板
         private Entry sharedEntry;
 
+        private ArrayList history;
+        private int pointer;
+
         private bool isCut = false;
 
         private void InitialVFS()
@@ -61,7 +64,7 @@ namespace VirtualFileSystem
             treeView1.Nodes.Add(rootNode);
         }
 
-        private void enterDirectory(Directory dir)
+        private void enterDirectory(Directory dir, bool flag = true)
         {
             currentDir = dir;
             listView1.Items.Clear();
@@ -73,22 +76,40 @@ namespace VirtualFileSystem
                 listView1.Items.Add(entry.getListViewItem());
             }
 
-            //排序功能
+            if (flag)
+            {
+                //修改历史表
+                for (int i = history.Count - 1; i > pointer; i--)
+                    history.RemoveAt(i);
 
-            //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); //自动修改宽度
+                pointer++;
+                history.Add(dir);
+            }
+
+            imageButton1.Enabled = true;
+            imageButton2.Enabled = true;
+            if (pointer <= 0)
+                imageButton1.Enabled = false;
+
+            if (pointer >= history.Count - 1)
+                imageButton2.Enabled = false;
+
         }
 
         public Form1()
         {
             InitializeComponent();
 
-
             InitialVFS();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             this.currentDir = VFS.rootDir;
             PopulateTreeView();
+
+            history = new ArrayList();
+            pointer = -1;
 
             enterDirectory(currentDir);
         }
@@ -418,12 +439,26 @@ namespace VirtualFileSystem
         {
             OnPaste();
         }
+
+        //后退
         private void imageButton1_Click(object sender, EventArgs e)
         {
-
+            pointer--;
+            currentDir = history[pointer] as Directory;
+            if (pointer == 0)
+                imageButton1.Enabled = false;
+            enterDirectory(currentDir, false);
         }
+
+
+        //前进
         private void imageButton2_Click(object sender, EventArgs e)
         {
+            pointer++;
+            currentDir = history[pointer] as Directory;
+            if (pointer == history.Count - 1)
+                imageButton2.Enabled = false;
+            enterDirectory(currentDir, false);
 
         }
 
