@@ -65,6 +65,7 @@
             this.保存SToolStripButton.Name = "保存SToolStripButton";
             this.保存SToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.保存SToolStripButton.Text = "保存(&S)";
+            this.保存SToolStripButton.Click += new System.EventHandler(this.保存SToolStripButton_Click);
             // 
             // toolStripSeparator
             // 
@@ -130,6 +131,8 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "TextEditor";
             this.Text = "TextEditor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TextEditor_FormClosed);
+            this.Load += new System.EventHandler(this.TextEditor_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

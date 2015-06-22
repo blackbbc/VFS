@@ -59,6 +59,9 @@ namespace VirtualFileSystem.Core
             int length = contents.GetLength(0);
             int num = length / 1024 + 1;
 
+            if (length == 0)
+                return;
+
             //寻找空闲block
             ArrayList free_blocks = VFS.getFreeBlocks(num + 1);
 

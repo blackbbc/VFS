@@ -69,6 +69,7 @@ namespace VirtualFileSystem.Core
             {
                 if (!inode_index[i])
                 {
+                    inode_index[i] = true;
                     return inodes[i];
                 }
             }

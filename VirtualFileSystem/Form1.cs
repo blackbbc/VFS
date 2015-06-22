@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Microsoft.WindowsAPICodePack.Shell;
+using System.Runtime.InteropServices;
 using System.Collections;
 
 using VirtualFileSystem.Core;
@@ -18,6 +19,25 @@ namespace VirtualFileSystem
 
     public partial class Form1 : Form
     {
+        private Directory currentDir;
+
+        //发送消息依赖-------------------------------------------------------------
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern uint RegisterWindowMessage(string lpString);
+        uint MSG_SHOW = RegisterWindowMessage("TextEditor Closed");
+        //发送消息依赖-------------------------------------------------------------
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == MSG_SHOW)
+            {
+                enterDirectory(currentDir);
+                //MessageBox.Show("收到！");
+            }
+            base.WndProc(ref m);
+        }
+
+
         private void InitialVFS()
         {
             //初始化全局块组
@@ -55,6 +75,7 @@ namespace VirtualFileSystem
 
         private void enterDirectory(Directory dir)
         {
+            currentDir = dir;
             listView1.Items.Clear();
 
             ArrayList entries = dir.getEntries();

@@ -51,6 +51,7 @@ namespace VirtualFileSystem.Core
         public override string getSize()
         {
             long size = inode.getSize();
+            size /= 1024;
             return size.ToString() + "kb";
         }
 
