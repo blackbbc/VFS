@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Windows.Forms;
 using System.Collections;
 
 namespace VirtualFileSystem.Core
@@ -38,7 +39,8 @@ namespace VirtualFileSystem.Core
         }
         public override string getModifiedTime()
         {
-            throw new NotImplementedException();
+            DateTime dateTime = Utils.getDateTime(inode.m_time);
+            return dateTime.ToString("yyyy-MM-dd hh:mm:ss");
         }
 
         public override string getType()
@@ -48,12 +50,42 @@ namespace VirtualFileSystem.Core
 
         public override string getSize()
         {
-            throw new NotImplementedException();
+            //需要重写！
+            return "1kb";
+            //throw new NotImplementedException();
         }
 
         public override Entry add(Entry entry)
         {
             throw new NotImplementedException();
+        }
+
+        public override TreeNode getTreeNode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ArrayList getEntries()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ListViewItem getListViewItem()
+        {
+            ListViewItem item = new ListViewItem(name, 1);
+
+            ListViewItem.ListViewSubItem[] subItems;
+
+            subItems = new ListViewItem.ListViewSubItem[]
+            {
+                new ListViewItem.ListViewSubItem(item, getType()),
+                new ListViewItem.ListViewSubItem(item, getModifiedTime()),
+                new ListViewItem.ListViewSubItem(item, getSize())
+            };
+
+            item.SubItems.AddRange(subItems);
+
+            return item;
         }
 
         //写文件

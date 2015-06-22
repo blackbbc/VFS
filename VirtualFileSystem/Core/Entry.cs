@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Windows.Forms;
+using System.Collections;
+
 namespace VirtualFileSystem.Core
 {
     abstract class Entry
@@ -19,6 +22,12 @@ namespace VirtualFileSystem.Core
         public abstract String getContent();
 
         public abstract Entry add(Entry entry);
+
+        public abstract TreeNode getTreeNode();
+
+        public abstract ArrayList getEntries();
+
+        public abstract ListViewItem getListViewItem();
 
     }
 }

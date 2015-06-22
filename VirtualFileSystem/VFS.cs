@@ -12,6 +12,7 @@ namespace VirtualFileSystem
 {
     class VFS
     {
+        public static Directory rootDir;
         public static BlockGroup[] BLOCK_GROUPS = new BlockGroup[Config.GROUPS];
 
         public static ArrayList getFreeBlocks(int num)
