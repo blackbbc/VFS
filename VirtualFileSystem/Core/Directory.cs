@@ -11,6 +11,7 @@ namespace VirtualFileSystem.Core
     class Directory: Entry
     {
         private String name;
+        private long modifiedTime;
 
         private ArrayList directory = new ArrayList();
 
@@ -19,7 +20,27 @@ namespace VirtualFileSystem.Core
             return name;
         }
 
-        public new Entry add(Entry entry)
+        public override String getModifiedTime()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override String getType()
+        {
+            return "文件夹";
+        }
+
+        public override String getSize()
+        {
+            return "";
+        }
+
+        public override String getContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Entry add(Entry entry)
         {
             directory.Add(entry);
             return this;

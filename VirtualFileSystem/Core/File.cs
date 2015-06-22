@@ -32,9 +32,28 @@ namespace VirtualFileSystem.Core
             }
 
         }
-        public override String getName()
+        public override string getName()
         {
             return this.name;
+        }
+        public override string getModifiedTime()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string getType()
+        {
+            return "文本文件";
+        }
+
+        public override string getSize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Entry add(Entry entry)
+        {
+            throw new NotImplementedException();
         }
 
         //写文件
@@ -96,7 +115,7 @@ namespace VirtualFileSystem.Core
         }
 
         //读文件
-        public new String getContent()
+        public override String getContent()
         {
             String content = "";
 

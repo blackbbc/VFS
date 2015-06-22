@@ -9,11 +9,16 @@ namespace VirtualFileSystem.Core
     abstract class Entry
     {
         public abstract String getName();
-        public String getContent() { return ""; }
-        public Entry add(Entry entry)
-        { 
-            return this; 
-        }
+
+        public abstract String getModifiedTime();
+
+        public abstract String getType();
+
+        public abstract String getSize();
+
+        public abstract String getContent();
+
+        public abstract Entry add(Entry entry);
 
     }
 }

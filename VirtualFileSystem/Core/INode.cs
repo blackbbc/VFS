@@ -13,6 +13,7 @@ namespace VirtualFileSystem.Core
         public Block[] blocks; //数据块指针数组
         public long c_time; //文件创建时间
         public long m_time; //文件修改时间
+        public bool is_open;
         private int block_group_index; //所在块组号
         private int inode_index; //所在inode号
 
@@ -21,6 +22,7 @@ namespace VirtualFileSystem.Core
         {
             blocks = new Block[15];
 
+            this.is_open = false;
             this.c_time = Utils.getUnixTimeStamp();
             this.m_time = this.c_time;
 

@@ -7,3 +7,5 @@ D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.exe
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.pdb
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.csprojResolveAssemblyReference.cache
+D:\C# workspace\VirtualFileSystem\VirtualFileSystem\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.TextEditor.resources
