@@ -96,6 +96,7 @@ namespace VirtualFileSystem
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.currentDir = VFS.rootDir;
             PopulateTreeView();
         }
 
@@ -141,6 +142,36 @@ namespace VirtualFileSystem
 
             }
 
+        }
+
+        private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            enterDirectory(currentDir);
+        }
+
+        private void listView1_MouseUp(object sender, MouseEventArgs e)
+        {
+            bool match = false;
+
+            if (e.Button == MouseButtons.Right)
+            {
+                foreach (ListViewItem item in listView1.Items)
+                {
+                    if (item.Bounds.Contains(e.Location))
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match)
+                {
+                    contextMenuStrip2.Show(Cursor.Position);
+                }
+                else
+                {
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
         }
 
     }
