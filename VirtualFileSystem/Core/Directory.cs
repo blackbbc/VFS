@@ -108,10 +108,21 @@ namespace VirtualFileSystem.Core
             return item;
         }
 
-        public String getLegalNewName()
+        public Entry findByName(String name)
         {
+            foreach (Entry entry in directory)
+                if (entry.getName() == name)
+                    return entry;
 
-            return "";
+            return null;
+        }
+
+        public bool isExist(String name)
+        {
+            if (findByName(name) != null)
+                return true;
+            else
+                return false;
         }
 
     }

@@ -20,9 +20,7 @@ namespace VirtualFileSystem.Core
         {
             this.name = name;
 
-            //第一步,检查重名
-
-            //第二步,寻找空闲的inode
+            //寻找空闲的inode
             for (int i = 0; i < Config.GROUPS; i++ )
             {
                 if (VFS.BLOCK_GROUPS[i].hasFreeINode())

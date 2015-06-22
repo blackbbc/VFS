@@ -55,8 +55,8 @@ namespace VirtualFileSystem
             Directory tempDir = new Directory("temp");
             VFS.rootDir.add(bootDir);
             VFS.rootDir.add(etcDir);
-            VFS.rootDir.add(libDir);
             VFS.rootDir.add(homeDir);
+            VFS.rootDir.add(libDir);
             VFS.rootDir.add(rootDir);
             VFS.rootDir.add(tempDir);
 
@@ -84,6 +84,8 @@ namespace VirtualFileSystem
             {
                 listView1.Items.Add(entry.getListViewItem());
             }
+
+            //排序功能
 
             //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize); //自动修改宽度
         }
@@ -223,10 +225,10 @@ namespace VirtualFileSystem
             }
         }
 
-        //新建文件夹
-        private void 文件夹ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void OnNewFolder()
         {
-            Directory newDir = new Directory("新建文件夹");
+            String newName = Utils.getLegalNewName("新建文件夹", currentDir);
+            Directory newDir = new Directory(newName);
             currentDir.add(newDir);
 
             //刷新listview
@@ -247,13 +249,31 @@ namespace VirtualFileSystem
                 newItem.BeginEdit();
         }
 
+        //新建文件夹
+        private void 文件夹ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnNewFolder();
+        }
+
         private void OnNewFile()
         {
-            File newFile = new File("新建文件");
+            String newName = Utils.getLegalNewName("新建文本文件", currentDir);
+            File newFile = new File(newName);
             currentDir.add(newFile);
 
             //刷新listview
             enterDirectory(currentDir);
+
+            ListViewItem newItem = null;
+            foreach (ListViewItem item in listView1.Items)
+                if (item.Text == newFile.getName())
+                {
+                    newItem = item;
+                    break;
+                }
+
+            if (newItem != null)
+                newItem.BeginEdit();
         }
 
         //新建文本文件
@@ -274,6 +294,47 @@ namespace VirtualFileSystem
             OnRename();
         }
 
+        private void OnSort(int column)
+        {
+            int index = 0;
+            foreach (ToolStripMenuItem item in (contextMenuStrip1.Items[0] as ToolStripDropDownItem).DropDownItems)
+            {
+                if (index == column)
+                    item.Checked = true;
+                else
+                    item.Checked = false;
+                index++;
+            }
+            listView1.ListViewItemSorter = new ListViewItemComparer(column);
+        }
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            OnSort(e.Column);
+        }
+
+        //按名称排序
+        private void 名称ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnSort(0);
+        }
+
+        //按修改日期排序
+        private void 修改日期ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnSort(1);
+        }
+
+        //按修改日期排序
+        private void 类型ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnSort(2);
+        }
+
+        //按大小排序
+        private void 大小ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnSort(3);
+        }
 
 
     }
