@@ -26,23 +26,6 @@ namespace VirtualFileSystem
 
         private bool isCut = false;
 
-        //发送消息依赖-------------------------------------------------------------
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern uint RegisterWindowMessage(string lpString);
-        uint MSG_SHOW = RegisterWindowMessage("TextEditor Closed");
-        //发送消息依赖-------------------------------------------------------------
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == MSG_SHOW)
-            {
-                enterDirectory(currentDir);
-                //MessageBox.Show("收到！");
-            }
-            base.WndProc(ref m);
-        }
-
-
         private void InitialVFS()
         {
             //初始化全局块组
@@ -99,6 +82,7 @@ namespace VirtualFileSystem
         {
             InitializeComponent();
 
+
             InitialVFS();
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -121,11 +105,6 @@ namespace VirtualFileSystem
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TextEditor textEditor = new TextEditor();
-            textEditor.Show();
-        }
 
         private void listView1_AfterLabelEdit(object sender, LabelEditEventArgs e)
         {
@@ -175,7 +154,8 @@ namespace VirtualFileSystem
                 //打开编辑器
                 File file = (File)selectedEntry;
                 TextEditor textEditor = new TextEditor(file);
-                textEditor.Show();
+                textEditor.ShowDialog();
+                enterDirectory(currentDir);
             }
             else
             {
@@ -438,8 +418,14 @@ namespace VirtualFileSystem
         {
             OnPaste();
         }
+        private void imageButton1_Click(object sender, EventArgs e)
+        {
 
+        }
+        private void imageButton2_Click(object sender, EventArgs e)
+        {
 
+        }
 
 
     }

@@ -18,17 +18,8 @@ namespace VirtualFileSystem
     {
         private File file;
 
-        //发送消息依赖-------------------------------------------------------------
-        [DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hwnd, uint wMsg, int wParam, IntPtr lParam);
+        private bool isSave;
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern uint RegisterWindowMessage(string lpString);
-        uint MSG_SHOW = RegisterWindowMessage("TextEditor Closed");
-
-        [DllImport("user32.dll")]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        //发送消息依赖------------------------------------------------------------
 
         public TextEditor()
         {
@@ -39,6 +30,7 @@ namespace VirtualFileSystem
         {
             InitializeComponent();
 
+            this.isSave = true;
             this.file = file;
         }
         private void TextEditor_Load(object sender, EventArgs e)
@@ -46,45 +38,53 @@ namespace VirtualFileSystem
             richTextBox1.Text = file.getContent();
         }
 
+        public void OnSave()
+        {
+            isSave = true;
+            String content = richTextBox1.Text;
+            file.save(content);
+        }
 
         //设置快捷键
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.S))
-            {
-                String content = richTextBox1.Text;
-                file.save(content);
-            }
+                OnSave();
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void 保存SToolStripButton_Click(object sender, EventArgs e)
         {
-            String content = richTextBox1.Text;
-            file.save(content);
+            OnSave();
         }
 
-        //关闭窗口
-        private void TextEditor_FormClosed(object sender, FormClosedEventArgs e)
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            IntPtr form_name = FindWindow(null, "Form1");//找B的IntPtr 用來代表指標或控制代碼
+            isSave = false;
+        }
 
-            if (form_name != IntPtr.Zero)
+        private void TextEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isSave)
             {
-                try
+                var result = MessageBox.Show("是否保存"+file.getName(), "记事本", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                
+                if (result == DialogResult.Yes)
                 {
-                    int iNum = 1000;
-                    SendMessage(form_name, MSG_SHOW, iNum, IntPtr.Zero);
+                    OnSave();
                 }
-                catch (Exception)
+                else if (result == DialogResult.No)
                 {
 
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
 
             }
-
         }
-
 
     }
 }

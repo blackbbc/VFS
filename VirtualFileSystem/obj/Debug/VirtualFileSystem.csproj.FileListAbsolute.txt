@@ -9,3 +9,5 @@ D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.csprojResolveAssemblyReference.cache
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 D:\C# workspace\VirtualFileSystem\VirtualFileSystem\obj\Debug\VirtualFileSystem.TextEditor.resources
+D:\C# workspace\VirtualFileSystem\VirtualFileSystem\bin\Debug\ImageButton.dll
+D:\C# workspace\VirtualFileSystem\VirtualFileSystem\bin\Debug\ImageButton.pdb

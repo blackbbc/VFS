@@ -30,7 +30,7 @@ namespace VirtualFileSystem.Core
 
         public bool isFull()
         {
-            if (blocks.Count <= 1024)
+            if (blocks.Count <= Config.BLOCK_SIZE)
                 return false;
             else
                 return true;

@@ -41,8 +41,6 @@
             this.lastModified = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.size = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -70,6 +68,8 @@
             this.重命名ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.属性ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageButton1 = new System.Windows.Forms.ImageButton();
+            this.imageButton2 = new System.Windows.Forms.ImageButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -78,6 +78,8 @@
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageButton1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageButton2)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -186,52 +188,33 @@
             this.imageList2.Images.SetKeyName(0, "folderM.png");
             this.imageList2.Images.SetKeyName(1, "fileM.png");
             // 
-            // button1
-            // 
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button1.Enabled = false;
-            this.button1.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.button1.Location = new System.Drawing.Point(44, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 23);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Location = new System.Drawing.Point(134, 36);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(42, 23);
-            this.button2.TabIndex = 1;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // comboBox1
             // 
+            this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(256, 38);
+            this.comboBox1.ItemHeight = 18;
+            this.comboBox1.Location = new System.Drawing.Point(97, 34);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(625, 20);
+            this.comboBox1.Size = new System.Drawing.Size(794, 24);
             this.comboBox1.TabIndex = 2;
             // 
             // comboBox2
             // 
+            this.comboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(928, 38);
+            this.comboBox2.ItemHeight = 18;
+            this.comboBox2.Location = new System.Drawing.Point(928, 34);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(324, 20);
+            this.comboBox2.Size = new System.Drawing.Size(324, 24);
             this.comboBox2.TabIndex = 3;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
+            this.panel1.Controls.Add(this.imageButton2);
+            this.panel1.Controls.Add(this.imageButton1);
             this.panel1.Controls.Add(this.comboBox2);
             this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -259,7 +242,7 @@
             this.类型ToolStripMenuItem,
             this.大小ToolStripMenuItem});
             this.排序方式ToolStripMenuItem.Name = "排序方式ToolStripMenuItem";
-            this.排序方式ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.排序方式ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.排序方式ToolStripMenuItem.Text = "排序方式";
             // 
             // 名称ToolStripMenuItem
@@ -293,21 +276,21 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(142, 6);
             // 
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
             this.刷新ToolStripMenuItem.ShortcutKeyDisplayString = "F5";
             this.刷新ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.刷新ToolStripMenuItem.Text = "刷新";
             this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(142, 6);
             // 
             // 粘贴ToolStripMenuItem
             // 
@@ -321,7 +304,7 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(142, 6);
             // 
             // 新建ToolStripMenuItem
             // 
@@ -329,7 +312,7 @@
             this.文件夹ToolStripMenuItem,
             this.文本文件ToolStripMenuItem});
             this.新建ToolStripMenuItem.Name = "新建ToolStripMenuItem";
-            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.新建ToolStripMenuItem.Text = "新建";
             // 
             // 文件夹ToolStripMenuItem
@@ -423,6 +406,34 @@
             this.属性ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.属性ToolStripMenuItem.Text = "属性";
             // 
+            // imageButton1
+            // 
+            this.imageButton1.BackColor = System.Drawing.Color.Transparent;
+            this.imageButton1.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.imageButton1.DownImage = ((System.Drawing.Image)(resources.GetObject("imageButton1.DownImage")));
+            this.imageButton1.HoverImage = ((System.Drawing.Image)(resources.GetObject("imageButton1.HoverImage")));
+            this.imageButton1.Location = new System.Drawing.Point(27, 34);
+            this.imageButton1.Name = "imageButton1";
+            this.imageButton1.NormalImage = ((System.Drawing.Image)(resources.GetObject("imageButton1.NormalImage")));
+            this.imageButton1.Size = new System.Drawing.Size(24, 24);
+            this.imageButton1.TabIndex = 4;
+            this.imageButton1.TabStop = false;
+            this.imageButton1.Click += new System.EventHandler(this.imageButton1_Click);
+            // 
+            // imageButton2
+            // 
+            this.imageButton2.BackColor = System.Drawing.Color.Transparent;
+            this.imageButton2.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.imageButton2.DownImage = ((System.Drawing.Image)(resources.GetObject("imageButton2.DownImage")));
+            this.imageButton2.HoverImage = ((System.Drawing.Image)(resources.GetObject("imageButton2.HoverImage")));
+            this.imageButton2.Location = new System.Drawing.Point(57, 34);
+            this.imageButton2.Name = "imageButton2";
+            this.imageButton2.NormalImage = ((System.Drawing.Image)(resources.GetObject("imageButton2.NormalImage")));
+            this.imageButton2.Size = new System.Drawing.Size(24, 24);
+            this.imageButton2.TabIndex = 5;
+            this.imageButton2.TabStop = false;
+            this.imageButton2.Click += new System.EventHandler(this.imageButton2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -444,6 +455,8 @@
             this.panel1.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imageButton1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageButton2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -454,8 +467,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Panel panel1;
@@ -490,6 +501,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ImageButton imageButton1;
+        private System.Windows.Forms.ImageButton imageButton2;
 
 
 
