@@ -98,6 +98,8 @@ namespace VirtualFileSystem
         {
             this.currentDir = VFS.rootDir;
             PopulateTreeView();
+
+            enterDirectory(currentDir);
         }
 
         private void treeView1_NodeMouseClick_1(object sender, TreeNodeMouseClickEventArgs e)
@@ -148,6 +150,7 @@ namespace VirtualFileSystem
         {
             enterDirectory(currentDir);
         }
+
 
         private void listView1_MouseUp(object sender, MouseEventArgs e)
         {
