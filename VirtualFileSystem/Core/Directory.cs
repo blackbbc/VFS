@@ -27,6 +27,11 @@ namespace VirtualFileSystem.Core
             return name;
         }
 
+        public override void setName(string name)
+        {
+            this.name = name;
+        }
+
         public override String getModifiedTime()
         {
             DateTime dateTime = Utils.getDateTime(this.modifiedTime);

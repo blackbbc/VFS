@@ -47,6 +47,8 @@ namespace VirtualFileSystem
             richTextBox1.Text = file.getContent();
         }
 
+
+        //设置快捷键
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.S))

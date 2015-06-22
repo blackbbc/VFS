@@ -122,7 +122,24 @@ namespace VirtualFileSystem
 
         private void listView1_AfterLabelEdit(object sender, LabelEditEventArgs e)
         {
-            MessageBox.Show("修改成功！");
+            ListViewItem selectedItem = listView1.Items[e.Item];
+            Entry entry = (Entry)selectedItem.Tag;
+
+            //检查空文件名以及重名
+            if (e.Label == "")
+            {
+                selectedItem.SubItems[0].Text = "aaaa";
+                enterDirectory(currentDir);
+                MessageBox.Show("必须键入文件名", "重命名");
+                return;
+            }
+
+            entry.setName(e.Label);
+
+            //刷新listview
+            enterDirectory(currentDir);
+
+            //刷新treeview
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)
@@ -146,12 +163,24 @@ namespace VirtualFileSystem
 
         }
 
+        //设置快捷键
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.F5)
+                enterDirectory(currentDir);
+            else if (keyData == Keys.F2)
+                OnRename();
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        //刷新
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             enterDirectory(currentDir);
         }
 
 
+        //右键菜单
         private void listView1_MouseUp(object sender, MouseEventArgs e)
         {
             bool match = false;
@@ -175,6 +204,45 @@ namespace VirtualFileSystem
                     contextMenuStrip1.Show(Cursor.Position);
                 }
             }
+        }
+
+        //新建文件夹
+        private void 文件夹ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Directory newDir = new Directory("新建文件夹");
+            currentDir.add(newDir);
+
+            //刷新listview
+            enterDirectory(currentDir);
+
+            //刷新treeview
+        }
+
+        private void OnNewFile()
+        {
+            File newFile = new File("新建文件");
+            currentDir.add(newFile);
+
+            //刷新listview
+            enterDirectory(currentDir);
+        }
+
+        //新建文本文件
+        private void 文本文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnNewFile();
+        }
+
+        private void OnRename()
+        {
+            ListViewItem selectedItem = (ListViewItem)listView1.SelectedItems[0];
+            selectedItem.BeginEdit();
+        }
+
+        //重命名
+        private void 重命名ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnRename();
         }
 
     }
