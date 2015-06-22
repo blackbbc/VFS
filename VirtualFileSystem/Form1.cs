@@ -122,24 +122,41 @@ namespace VirtualFileSystem
 
         private void listView1_AfterLabelEdit(object sender, LabelEditEventArgs e)
         {
-            ListViewItem selectedItem = listView1.Items[e.Item];
-            Entry entry = (Entry)selectedItem.Tag;
 
-            //检查空文件名以及重名
+            if (e.Label == null)
+                return;
+
             if (e.Label == "")
             {
-                selectedItem.SubItems[0].Text = "aaaa";
-                enterDirectory(currentDir);
+                e.CancelEdit = true;
                 MessageBox.Show("必须键入文件名", "重命名");
                 return;
             }
 
-            entry.setName(e.Label);
+            //检查文件重名
+            ArrayList entries = currentDir.getEntries();
+
+            foreach (Entry entry in entries)
+                if (entry.getName() == e.Label)
+                {
+                    e.CancelEdit = true;
+                    MessageBox.Show("文件名重复", "重命名");
+                    return;
+                }
+
+            ListViewItem selectedItem = listView1.Items[e.Item];
+            Entry selectedEntry = (Entry)selectedItem.Tag;
+            selectedEntry.setName(e.Label);
 
             //刷新listview
             enterDirectory(currentDir);
 
             //刷新treeview
+            if (selectedEntry.getType() == "文件夹")
+            {
+                Directory selectedDir = (Directory)selectedEntry;
+                selectedDir.getLinkedTreeNode().Text = e.Label;
+            }
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)
@@ -216,6 +233,18 @@ namespace VirtualFileSystem
             enterDirectory(currentDir);
 
             //刷新treeview
+            currentDir.getLinkedTreeNode().Nodes.Add(newDir.getTreeNode());
+
+            ListViewItem newItem = null;
+            foreach (ListViewItem item in listView1.Items)
+                if (item.Text == newDir.getName())
+                {
+                    newItem = item;
+                    break;
+                }
+
+            if (newItem != null)
+                newItem.BeginEdit();
         }
 
         private void OnNewFile()
@@ -244,6 +273,8 @@ namespace VirtualFileSystem
         {
             OnRename();
         }
+
+
 
     }
 }

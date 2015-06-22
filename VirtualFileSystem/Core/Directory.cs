@@ -14,6 +14,8 @@ namespace VirtualFileSystem.Core
         private String name;
         private long modifiedTime;
 
+        private TreeNode treeNode;
+
         private ArrayList directory = new ArrayList();
 
         public Directory(String name)
@@ -64,6 +66,7 @@ namespace VirtualFileSystem.Core
         public override TreeNode getTreeNode()
         {
             TreeNode node = new TreeNode(this.name);
+            this.treeNode = node;
             node.Tag = this;
 
             foreach (Entry entry in directory)
@@ -74,6 +77,11 @@ namespace VirtualFileSystem.Core
                 }
 
             return node;
+        }
+
+        public TreeNode getLinkedTreeNode()
+        {
+            return this.treeNode;
         }
 
         public override ArrayList getEntries()
@@ -98,6 +106,12 @@ namespace VirtualFileSystem.Core
             item.SubItems.AddRange(subItems);
 
             return item;
+        }
+
+        public String getLegalNewName()
+        {
+
+            return "";
         }
 
     }
