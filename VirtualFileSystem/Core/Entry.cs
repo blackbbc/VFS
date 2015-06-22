@@ -11,6 +11,7 @@ namespace VirtualFileSystem.Core
 {
     public abstract class Entry
     {
+
         public abstract String getName();
 
         public abstract void setName(String name);

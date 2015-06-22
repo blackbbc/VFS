@@ -18,7 +18,6 @@ namespace VirtualFileSystem
     {
         private File file;
 
-
         //发送消息依赖-------------------------------------------------------------
         [DllImport("user32.dll")]
         private static extern int SendMessage(IntPtr hwnd, uint wMsg, int wParam, IntPtr lParam);

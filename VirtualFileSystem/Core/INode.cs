@@ -57,7 +57,7 @@ namespace VirtualFileSystem.Core
             char[] contents = content.ToCharArray();
             //长度
             int length = contents.GetLength(0);
-            int num = length / 1024 + 1;
+            int num = length / (int)Config.BLOCK_SIZE + 1;
 
             if (length == 0)
                 return;
@@ -74,8 +74,9 @@ namespace VirtualFileSystem.Core
             for (int i = 0; i < num; i++)
             {
                 //首先获得一段字符串
-                char[] content_sequence = new char[1024];
-                Array.Copy(contents, 1024 * i, content_sequence, 0, Math.Min(1024, length - i * 1024));
+                long realBlockSize = Math.Min(Config.BLOCK_SIZE, length - i * Config.BLOCK_SIZE);
+                char[] content_sequence = new char[realBlockSize];
+                Array.Copy(contents, Config.BLOCK_SIZE * i, content_sequence, 0, realBlockSize);
 
                 //然后写
 

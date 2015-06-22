@@ -46,6 +46,17 @@ namespace VirtualFileSystem.Core
 
             }
         }
+
+        public static String getLegalCopyName(String name, Directory dir)
+        {
+            String legalCopyName = name;
+            while (true)
+            {
+                legalCopyName += "_副本";
+                if (!dir.isExist(legalCopyName))
+                    return legalCopyName;
+            }
+        }
     }
 
     public class ListViewItemComparer : IComparer

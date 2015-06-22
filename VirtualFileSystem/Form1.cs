@@ -21,6 +21,11 @@ namespace VirtualFileSystem
     {
         private Directory currentDir;
 
+        //剪贴板
+        private Entry sharedEntry;
+
+        private bool isCut = false;
+
         //发送消息依赖-------------------------------------------------------------
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern uint RegisterWindowMessage(string lpString);
@@ -104,7 +109,7 @@ namespace VirtualFileSystem
             enterDirectory(currentDir);
         }
 
-        private void treeView1_NodeMouseClick_1(object sender, TreeNodeMouseClickEventArgs e)
+        private void treeView1_NodeMouseClick_1(object sendeblock_indexr, TreeNodeMouseClickEventArgs e)
         {
             TreeNode selectedNode = e.Node;
             listView1.Items.Clear();
@@ -191,6 +196,12 @@ namespace VirtualFileSystem
                 OnRename();
             else if (keyData == Keys.Delete)
                 OnDelete();
+            else if (keyData == (Keys.Control | Keys.X))
+                OnCut();
+            else if (keyData == (Keys.Control | Keys.C))
+                OnCopy();
+            else if (keyData == (Keys.Control | Keys.V))
+                OnPaste();
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -367,6 +378,68 @@ namespace VirtualFileSystem
         {
             OnDelete();
         }
+
+        public void OnCopy()
+        {
+            Entry copiedEntry = listView1.SelectedItems[0].Tag as Entry;
+            sharedEntry = copiedEntry;
+
+            粘贴ToolStripMenuItem.Enabled = true;
+
+        }
+
+        //复制
+        private void 复制ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OnCopy();
+        }
+
+
+        public void OnCut()
+        {
+            OnCopy();
+            isCut = true;
+        }
+
+        //剪切
+        private void 剪切ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnCut();
+        }
+
+        public void OnPaste()
+        {
+            if (!粘贴ToolStripMenuItem.Enabled)
+                return;
+
+            String newName = Utils.getLegalCopyName(sharedEntry.getName(), currentDir);
+            if (sharedEntry.getType() == "文本文件")
+            {
+                File newFile = new File(newName, sharedEntry as File);
+                currentDir.add(newFile);
+
+                enterDirectory(currentDir);
+            }
+            else
+            {
+                //复制文件夹，递归复制，Fuck!
+            }
+
+            if (isCut)
+            {
+                isCut = false;
+                粘贴ToolStripMenuItem.Enabled = false;
+            }
+
+        }
+
+        //粘贴
+        private void 粘贴ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnPaste();
+        }
+
+
 
 
     }

@@ -15,6 +15,25 @@ namespace VirtualFileSystem.Core
 
         private String name;
 
+        //复制构造函数
+        public File(String name, File copiedFile)
+        {
+            this.name = name;
+
+            //寻找空闲的inode
+            for (int i = 0; i < Config.GROUPS; i++)
+            {
+                if (VFS.BLOCK_GROUPS[i].hasFreeINode())
+                {
+                    this.inode = VFS.BLOCK_GROUPS[i].getFreeInode();
+                    break;
+                }
+            }
+
+            //复制数据
+            this.inode.save(copiedFile.getContent());
+        }
+
         //创建文件
         public File(String name)
         {
@@ -26,7 +45,7 @@ namespace VirtualFileSystem.Core
                 if (VFS.BLOCK_GROUPS[i].hasFreeINode())
                 {
                     this.inode = VFS.BLOCK_GROUPS[i].getFreeInode();
-                    return;
+                    break;
                 }
             }
 
