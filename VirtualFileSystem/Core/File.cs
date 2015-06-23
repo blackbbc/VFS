@@ -18,10 +18,10 @@ namespace VirtualFileSystem.Core
         public Directory parent;
 
         //复制构造函数
-        public File(String name, File copiedFile)
+        public File(String name, File copiedFile, Directory parent)
         {
             this.name = name;
-            this.parent = copiedFile.parent;
+            this.parent = parent;
 
             //寻找空闲的inode
             for (int i = 0; i < Config.GROUPS; i++)

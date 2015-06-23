@@ -21,13 +21,33 @@ namespace VirtualFileSystem.Core
 
         private ArrayList directory = new ArrayList();
 
+        //复制构造函数
+        public Directory (String name, Directory copiedDir, Directory parent)
+        {
+            this.name = name;
+            this.parent = parent;
+
+            foreach (Entry entry in copiedDir.directory)
+                if (entry.getType() == "文本文件")
+                {
+                    File newFile = new File(entry.getName(), entry as File, this);
+                    directory.Add(newFile);
+                }
+                else
+                {
+                    Directory newDir = new Directory(entry.getName(), entry as Directory, this);
+                    directory.Add(newDir);
+
+                }
+
+            updateCTime();
+        }
+
         public Directory(String name, Directory parent)
         {
             this.name = name;
 
             this.parent = parent;
-
-            this.modifiedTime = Utils.getUnixTimeStamp();
 
             updateCTime();
         }

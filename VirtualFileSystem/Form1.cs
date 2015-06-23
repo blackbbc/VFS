@@ -117,17 +117,7 @@ namespace VirtualFileSystem
             enterDirectory(currentDir);
         }
 
-        private void treeView1_NodeMouseClick_1(object sendeblock_indexr, TreeNodeMouseClickEventArgs e)
-        {
-            TreeNode selectedNode = e.Node;
-            listView1.Items.Clear();
 
-            Directory selectedDir = (Directory)selectedNode.Tag;
-
-            enterDirectory(selectedDir);
-
-
-        }
 
 
         private void listView1_AfterLabelEdit(object sender, LabelEditEventArgs e)
@@ -449,7 +439,7 @@ namespace VirtualFileSystem
             String newName = Utils.getLegalCopyName(sharedEntry.getName(), currentDir);
             if (sharedEntry.getType() == "文本文件")
             {
-                File newFile = new File(newName, sharedEntry as File);
+                File newFile = new File(newName, sharedEntry as File, currentDir);
                 currentDir.add(newFile);
 
                 enterDirectory(currentDir, false);
@@ -457,6 +447,13 @@ namespace VirtualFileSystem
             else
             {
                 //复制文件夹，递归复制，Fuck!
+                Directory newDir = new Directory(newName, sharedEntry as Directory, currentDir);
+                currentDir.add(newDir);
+
+                //刷新treeview
+                currentDir.getLinkedTreeNode().Nodes.Add(newDir.getTreeNode());
+
+                enterDirectory(currentDir, false);
             }
 
         }
@@ -628,6 +625,23 @@ namespace VirtualFileSystem
             if (e.KeyCode == Keys.Enter)
                 if (comboBox2.Text != null && comboBox2.Text != "")
                     OnSearch(comboBox2.Text);
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode selectedNode = e.Node;
+
+            if (selectedNode.IsSelected)
+            {
+                Directory selectedDir = (Directory)selectedNode.Tag;
+                enterDirectory(selectedDir);
+            }
+        }
+
+        //格式化磁盘
+        private void 格式化磁盘ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
