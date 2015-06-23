@@ -130,8 +130,9 @@
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TextEditor";
-            this.Text = "TextEditor";
+            this.Text = "Mini TextEditor By 罗毅 1352388";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TextEditor_FormClosing);
             this.Load += new System.EventHandler(this.TextEditor_Load);
             this.toolStrip1.ResumeLayout(false);

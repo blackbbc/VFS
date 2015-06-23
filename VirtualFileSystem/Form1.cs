@@ -31,9 +31,9 @@ namespace VirtualFileSystem
 
         private void InitialVFS()
         {
-            debugMode();
+            //debugMode();
 
-            //Utils.DeSerializeNow();
+            Utils.DeSerializeNow();
         }
 
         //关闭窗口
