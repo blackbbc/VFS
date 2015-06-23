@@ -641,7 +641,19 @@ namespace VirtualFileSystem
         //格式化磁盘
         private void 格式化磁盘ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var result = MessageBox.Show("您确定要格式化磁盘吗？", "格式化", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                VFS.format();
+
+                //刷新treeview
+                TreeNode rootNode = VFS.rootDir.getTreeNode();
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add(rootNode);
+
+                enterDirectory(VFS.rootDir);
+            }
         }
 
     }

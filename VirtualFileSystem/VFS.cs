@@ -31,5 +31,17 @@ namespace VirtualFileSystem
 
             return null;
         }
+
+        //格式化
+        public static void format()
+        {
+            //初始化全局块组
+            for (int i = 0; i < Config.GROUPS; i++)
+                VFS.BLOCK_GROUPS[i] = new BlockGroup(i);
+
+            //初始化目录树
+            VFS.rootDir = new Directory("/", null);
+
+        }
     }
 }
