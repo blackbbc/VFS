@@ -58,6 +58,8 @@
             this.新建ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.文本文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.格式化磁盘ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -79,8 +81,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.格式化磁盘ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -256,7 +256,7 @@
             this.toolStripSeparator6,
             this.格式化磁盘ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 160);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 138);
             // 
             // 排序方式ToolStripMenuItem
             // 
@@ -354,6 +354,18 @@
             this.文本文件ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.文本文件ToolStripMenuItem.Text = "文本文件";
             this.文本文件ToolStripMenuItem.Click += new System.EventHandler(this.文本文件ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(142, 6);
+            // 
+            // 格式化磁盘ToolStripMenuItem
+            // 
+            this.格式化磁盘ToolStripMenuItem.Name = "格式化磁盘ToolStripMenuItem";
+            this.格式化磁盘ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.格式化磁盘ToolStripMenuItem.Text = "格式化磁盘";
+            this.格式化磁盘ToolStripMenuItem.Click += new System.EventHandler(this.格式化磁盘ToolStripMenuItem_Click);
             // 
             // contextMenuStrip2
             // 
@@ -563,18 +575,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // 格式化磁盘ToolStripMenuItem
-            // 
-            this.格式化磁盘ToolStripMenuItem.Name = "格式化磁盘ToolStripMenuItem";
-            this.格式化磁盘ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.格式化磁盘ToolStripMenuItem.Text = "格式化磁盘";
-            this.格式化磁盘ToolStripMenuItem.Click += new System.EventHandler(this.格式化磁盘ToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -587,6 +587,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

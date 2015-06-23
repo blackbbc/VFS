@@ -9,6 +9,7 @@ using System.Collections;
 
 namespace VirtualFileSystem.Core
 {
+    [Serializable]
     class BlockGroup
     {
         //块组

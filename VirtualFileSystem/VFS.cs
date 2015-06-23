@@ -10,10 +10,26 @@ using VirtualFileSystem.Core;
 
 namespace VirtualFileSystem
 {
+    [Serializable]
     class VFS
     {
         public static Directory rootDir;
         public static BlockGroup[] BLOCK_GROUPS = new BlockGroup[Config.GROUPS];
+
+        public Directory rootDir_Serialize;
+        public BlockGroup[] BLOCK_GROUPS_Serialize;
+
+        public VFS()
+        {
+            rootDir_Serialize = rootDir;
+            BLOCK_GROUPS_Serialize = BLOCK_GROUPS;
+        }
+
+        public void update()
+        {
+            rootDir = rootDir_Serialize;
+            BLOCK_GROUPS = BLOCK_GROUPS_Serialize;
+        }
 
         //获取空闲空间
         public static ArrayList getFreeBlocks(int num)

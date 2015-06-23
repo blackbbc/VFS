@@ -9,6 +9,7 @@ using System.Collections;
 
 namespace VirtualFileSystem.Core
 {
+    [Serializable]
     public class File: Entry
     {
         private INode inode;

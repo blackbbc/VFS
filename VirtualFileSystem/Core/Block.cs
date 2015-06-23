@@ -11,6 +11,7 @@ using VirtualFileSystem;
 
 namespace VirtualFileSystem.Core
 {
+    [Serializable]
     class Block
     {
         public char[] data;        //数据

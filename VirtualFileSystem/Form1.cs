@@ -31,30 +31,40 @@ namespace VirtualFileSystem
 
         private void InitialVFS()
         {
-            //初始化全局块组
-            for (int i = 0; i < Config.GROUPS; i++)
-                VFS.BLOCK_GROUPS[i] = new BlockGroup(i);
+            ////初始化全局块组
+            //for (int i = 0; i < Config.GROUPS; i++)
+            //    VFS.BLOCK_GROUPS[i] = new BlockGroup(i);
 
-            //初始化目录树
-            VFS.rootDir = new Directory("/", null);
+            ////初始化目录树
+            //VFS.rootDir = new Directory("/", null);
 
-            Directory bootDir = new Directory("boot", VFS.rootDir);
-            Directory etcDir = new Directory("etc", VFS.rootDir);
-            Directory libDir = new Directory("lib", VFS.rootDir);
-            Directory homeDir = new Directory("home", VFS.rootDir);
-            Directory rootDir = new Directory("root", VFS.rootDir);
-            Directory tempDir = new Directory("temp", VFS.rootDir);
-            VFS.rootDir.add(bootDir);
-            VFS.rootDir.add(etcDir);
-            VFS.rootDir.add(homeDir);
-            VFS.rootDir.add(libDir);
-            VFS.rootDir.add(rootDir);
-            VFS.rootDir.add(tempDir);
+            //Directory bootDir = new Directory("boot", VFS.rootDir);
+            //Directory etcDir = new Directory("etc", VFS.rootDir);
+            //Directory libDir = new Directory("lib", VFS.rootDir);
+            //Directory homeDir = new Directory("home", VFS.rootDir);
+            //Directory rootDir = new Directory("root", VFS.rootDir);
+            //Directory tempDir = new Directory("temp", VFS.rootDir);
+            //VFS.rootDir.add(bootDir);
+            //VFS.rootDir.add(etcDir);
+            //VFS.rootDir.add(homeDir);
+            //VFS.rootDir.add(libDir);
+            //VFS.rootDir.add(rootDir);
+            //VFS.rootDir.add(tempDir);
 
-            File file1 = new File("bashrc", etcDir);
-            File file2 = new File("shadowsocks", etcDir);
-            etcDir.add(file1);
-            etcDir.add(file2);
+            //File file1 = new File("bashrc", etcDir);
+            //File file2 = new File("shadowsocks", etcDir);
+            //etcDir.add(file1);
+            //etcDir.add(file2);
+
+            //Utils.SerializeNow();
+
+            Utils.DeSerializeNow();
+        }
+
+        //关闭窗口
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Utils.SerializeNow();
         }
 
         private void PopulateTreeView()

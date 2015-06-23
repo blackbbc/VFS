@@ -9,6 +9,7 @@ using VirtualFileSystem;
 namespace VirtualFileSystem.Core
 {
 
+    [Serializable]
     class SuperBlock
     {
         public long s_inodes_count;

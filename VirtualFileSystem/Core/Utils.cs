@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using System.Collections;
 
@@ -56,6 +58,24 @@ namespace VirtualFileSystem.Core
                     return legalCopyName;
                 legalCopyName += "_副本";
             }
+        }
+
+        public static void SerializeNow()
+        {
+            FileStream fileStrean = new FileStream("./VFS.dat", FileMode.Create);
+            BinaryFormatter b = new BinaryFormatter();
+            b.Serialize(fileStrean, new VFS());
+            fileStrean.Close();
+        }
+
+        public static void DeSerializeNow()
+        {
+            VFS vfs = new VFS();
+            FileStream fileStream = new FileStream("./VFS.dat", FileMode.Open, FileAccess.Read, FileShare.Read);
+            BinaryFormatter b = new BinaryFormatter();
+            vfs = b.Deserialize(fileStream) as VFS;
+            vfs.update();
+            fileStream.Close();
         }
     }
 

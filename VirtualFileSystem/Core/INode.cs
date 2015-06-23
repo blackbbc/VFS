@@ -10,6 +10,7 @@ using VirtualFileSystem.Core;
 
 namespace VirtualFileSystem.Core
 {
+    [Serializable]
     class INode
     {
         public Block[] blocks; //数据块指针数组
