@@ -204,7 +204,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
+            this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panel1.Controls.Add(this.imageButton2);
             this.panel1.Controls.Add(this.imageButton1);
             this.panel1.Controls.Add(this.comboBox2);
@@ -366,7 +366,7 @@
             this.toolStripSeparator6,
             this.属性ToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(153, 176);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(146, 154);
             // 
             // 打开ToolStripMenuItem
             // 
