@@ -16,12 +16,40 @@ namespace VirtualFileSystem.Core
 
         private TreeNode treeNode;
 
+        //记录父目录
+        public Directory parent;
+
         private ArrayList directory = new ArrayList();
 
-        public Directory(String name)
+        public Directory(String name, Directory parent)
         {
             this.name = name;
+
+            this.parent = parent;
+
             this.modifiedTime = Utils.getUnixTimeStamp();
+        }
+
+        public String getPath()
+        {
+            //自己是根节点
+            if (isRootDir())
+                return "/";
+            else
+            {
+                if (parent.isRootDir())
+                    return parent.getPath() + name;
+                else
+                    return parent.getPath() + "/" + name;
+            }
+        }
+
+        public bool isRootDir()
+        {
+            if (parent == null)
+                return true;
+            else
+                return false;
         }
 
         public override String getName()

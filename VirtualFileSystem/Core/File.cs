@@ -12,13 +12,16 @@ namespace VirtualFileSystem.Core
     public class File: Entry
     {
         private INode inode;
-
         private String name;
+
+        //记录父目录
+        public Directory parent;
 
         //复制构造函数
         public File(String name, File copiedFile)
         {
             this.name = name;
+            this.parent = copiedFile.parent;
 
             //寻找空闲的inode
             for (int i = 0; i < Config.GROUPS; i++)
@@ -35,9 +38,10 @@ namespace VirtualFileSystem.Core
         }
 
         //创建文件
-        public File(String name)
+        public File(String name, Directory parent)
         {
             this.name = name;
+            this.parent = parent;
 
             //寻找空闲的inode
             for (int i = 0; i < Config.GROUPS; i++ )
@@ -48,8 +52,16 @@ namespace VirtualFileSystem.Core
                     break;
                 }
             }
-
         }
+
+        public String getPath()
+        {
+            if (parent.isRootDir())
+                return parent.getPath() + name;
+            else
+                return parent.getPath() + "/" + name;
+        }
+
         public override string getName()
         {
             return this.name;

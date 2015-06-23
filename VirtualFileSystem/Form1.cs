@@ -36,14 +36,14 @@ namespace VirtualFileSystem
                 VFS.BLOCK_GROUPS[i] = new BlockGroup(i);
 
             //初始化目录树
-            VFS.rootDir = new Directory("/");
+            VFS.rootDir = new Directory("/", null);
 
-            Directory bootDir = new Directory("boot");
-            Directory etcDir = new Directory("etc");
-            Directory libDir = new Directory("lib");
-            Directory homeDir = new Directory("home");
-            Directory rootDir = new Directory("root");
-            Directory tempDir = new Directory("temp");
+            Directory bootDir = new Directory("boot", VFS.rootDir);
+            Directory etcDir = new Directory("etc", VFS.rootDir);
+            Directory libDir = new Directory("lib", VFS.rootDir);
+            Directory homeDir = new Directory("home", VFS.rootDir);
+            Directory rootDir = new Directory("root", VFS.rootDir);
+            Directory tempDir = new Directory("temp", VFS.rootDir);
             VFS.rootDir.add(bootDir);
             VFS.rootDir.add(etcDir);
             VFS.rootDir.add(homeDir);
@@ -51,8 +51,8 @@ namespace VirtualFileSystem
             VFS.rootDir.add(rootDir);
             VFS.rootDir.add(tempDir);
 
-            File file1 = new File("bashrc");
-            File file2 = new File("shadowsocks");
+            File file1 = new File("bashrc", etcDir);
+            File file2 = new File("shadowsocks", etcDir);
             etcDir.add(file1);
             etcDir.add(file2);
         }
@@ -93,6 +93,8 @@ namespace VirtualFileSystem
 
             if (pointer >= history.Count - 1)
                 imageButton2.Enabled = false;
+
+            comboBox1.Text = currentDir.getPath();
 
         }
 
@@ -242,7 +244,7 @@ namespace VirtualFileSystem
         public void OnNewFolder()
         {
             String newName = Utils.getLegalNewName("新建文件夹", currentDir);
-            Directory newDir = new Directory(newName);
+            Directory newDir = new Directory(newName, currentDir);
             currentDir.add(newDir);
 
             //刷新listview
@@ -272,7 +274,7 @@ namespace VirtualFileSystem
         private void OnNewFile()
         {
             String newName = Utils.getLegalNewName("新建文本文件", currentDir);
-            File newFile = new File(newName);
+            File newFile = new File(newName, currentDir);
             currentDir.add(newFile);
 
             //刷新listview

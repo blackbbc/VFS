@@ -52,9 +52,9 @@ namespace VirtualFileSystem.Core
             String legalCopyName = name;
             while (true)
             {
-                legalCopyName += "_副本";
                 if (!dir.isExist(legalCopyName))
                     return legalCopyName;
+                legalCopyName += "_副本";
             }
         }
     }
