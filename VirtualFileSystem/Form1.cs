@@ -96,6 +96,7 @@ namespace VirtualFileSystem
 
             comboBox1.Text = currentDir.getPath();
 
+            UpdateGlobalStatus();
         }
 
         public Form1()
@@ -113,7 +114,6 @@ namespace VirtualFileSystem
             history = new ArrayList();
             pointer = -1;
 
-            UpdateGlobalStatus();
             enterDirectory(currentDir);
         }
 
