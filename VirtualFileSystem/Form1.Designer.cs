@@ -97,7 +97,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 100);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 60);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -107,7 +107,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.listView1);
-            this.splitContainer1.Size = new System.Drawing.Size(1264, 582);
+            this.splitContainer1.Size = new System.Drawing.Size(1264, 622);
             this.splitContainer1.SplitterDistance = 314;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -119,7 +119,7 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(314, 582);
+            this.treeView1.Size = new System.Drawing.Size(314, 622);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -143,7 +143,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(946, 582);
+            this.listView1.Size = new System.Drawing.Size(946, 622);
             this.listView1.SmallImageList = this.imageList2;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -186,7 +186,7 @@
             this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.ItemHeight = 18;
-            this.comboBox1.Location = new System.Drawing.Point(97, 34);
+            this.comboBox1.Location = new System.Drawing.Point(92, 12);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(794, 24);
             this.comboBox1.TabIndex = 2;
@@ -196,7 +196,7 @@
             this.comboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.ItemHeight = 18;
-            this.comboBox2.Location = new System.Drawing.Point(928, 34);
+            this.comboBox2.Location = new System.Drawing.Point(923, 12);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(324, 24);
             this.comboBox2.TabIndex = 3;
@@ -212,7 +212,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1264, 100);
+            this.panel1.Size = new System.Drawing.Size(1264, 60);
             this.panel1.TabIndex = 0;
             // 
             // imageButton2
@@ -221,7 +221,7 @@
             this.imageButton2.DialogResult = System.Windows.Forms.DialogResult.None;
             this.imageButton2.DownImage = ((System.Drawing.Image)(resources.GetObject("imageButton2.DownImage")));
             this.imageButton2.HoverImage = ((System.Drawing.Image)(resources.GetObject("imageButton2.HoverImage")));
-            this.imageButton2.Location = new System.Drawing.Point(57, 34);
+            this.imageButton2.Location = new System.Drawing.Point(52, 12);
             this.imageButton2.Name = "imageButton2";
             this.imageButton2.NormalImage = ((System.Drawing.Image)(resources.GetObject("imageButton2.NormalImage")));
             this.imageButton2.Size = new System.Drawing.Size(24, 24);
@@ -235,7 +235,7 @@
             this.imageButton1.DialogResult = System.Windows.Forms.DialogResult.None;
             this.imageButton1.DownImage = ((System.Drawing.Image)(resources.GetObject("imageButton1.DownImage")));
             this.imageButton1.HoverImage = ((System.Drawing.Image)(resources.GetObject("imageButton1.HoverImage")));
-            this.imageButton1.Location = new System.Drawing.Point(27, 34);
+            this.imageButton1.Location = new System.Drawing.Point(22, 12);
             this.imageButton1.Name = "imageButton1";
             this.imageButton1.NormalImage = ((System.Drawing.Image)(resources.GetObject("imageButton1.NormalImage")));
             this.imageButton1.Size = new System.Drawing.Size(24, 24);
@@ -442,7 +442,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(251)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.progressBar1);
