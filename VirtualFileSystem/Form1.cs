@@ -113,6 +113,7 @@ namespace VirtualFileSystem
             history = new ArrayList();
             pointer = -1;
 
+            UpdateGlobalStatus();
             enterDirectory(currentDir);
         }
 
@@ -477,6 +478,94 @@ namespace VirtualFileSystem
 
         }
 
+        private void HideStatus()
+        {
+            label1.Hide();
+            label2.Hide();
+            label3.Hide();
+            label4.Hide();
+            label5.Hide();
+            label6.Hide();
+            label7.Hide();
+            label8.Hide();
+            label10.Hide();
+            progressBar1.Hide();
+            pictureBox1.Hide();
+        }
+
+        //设置Entry状态栏信息
+        private void UpdateEntryStatus()
+        {
+            HideStatus();
+
+            label1.Show();
+            label2.Show();
+            label3.Text = "修改日期";
+            label3.Show();
+            label6.Show();
+            pictureBox1.Show();
+
+            Entry selectedEntry = listView1.SelectedItems[0].Tag as Entry;
+            label1.Text = selectedEntry.getName();
+            label2.Text = selectedEntry.getType();
+            label6.Text = selectedEntry.getModifiedTime();
+
+            if (selectedEntry.getType() == "文本文件")
+            {
+                label4.Text = "大小";
+                label4.Show();
+                label5.Show();
+                label8.Show();
+                label10.Show();
+
+                label5.Text = selectedEntry.getSize();
+                label8.Text = (selectedEntry as File).getCreatedTime();
+
+                //设置图片
+                pictureBox1.Image = Image.FromFile("../../images/fileB.png");
+
+            }
+            else
+            {
+                //设置图片
+                pictureBox1.Image = Image.FromFile("../../images/folderB.png");
+            }
+
+        }
+
+        private void UpdateGlobalStatus()
+        {
+            HideStatus();
+
+            label1.Text = "虚拟文件系统";
+            label1.Show();
+            label2.Text = "总大小";
+            label2.Show();
+            label3.Text = "已用空间";
+            label3.Show();
+            label4.Text = "可用空间";
+            label4.Show();
+            progressBar1.Show();
+            label5.Show();
+
+            pictureBox1.Image = Image.FromFile("../../images/disk.png");
+            pictureBox1.Show();
+
+        }
+
+        private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected)
+                UpdateEntryStatus();
+            else
+                UpdateGlobalStatus();
+        }
+
+        private void comboBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                MessageBox.Show("世界你好！");
+        }
 
     }
 }

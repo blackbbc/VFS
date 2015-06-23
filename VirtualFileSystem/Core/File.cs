@@ -82,6 +82,12 @@ namespace VirtualFileSystem.Core
             return dateTime.ToString("yyyy-MM-dd hh:mm:ss");
         }
 
+        public string getCreatedTime()
+        {
+            DateTime dateTime = Utils.getDateTime(inode.c_time);
+            return dateTime.ToString("yyyy-MM-dd hh:mm:ss");
+        }
+
         public override string getType()
         {
             return "文本文件";

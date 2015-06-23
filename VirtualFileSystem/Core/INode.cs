@@ -48,6 +48,9 @@ namespace VirtualFileSystem.Core
 
         public void save(String content)
         {
+            //先刷新修改时间
+            this.c_time = Utils.getUnixTimeStamp();
+
             //先擦除blocks
             clearBlock();
 

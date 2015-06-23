@@ -105,6 +105,21 @@
   <ItemGroup>
     <Folder Include="UI\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\disk.png" />
+    <Content Include="images\fileB.png" />
+    <Content Include="images\fileM.png" />
+    <Content Include="images\fileS.png" />
+    <Content Include="images\folderB.png" />
+    <Content Include="images\folderM.png" />
+    <Content Include="images\folderS.png" />
+    <Content Include="images\LeftDown.png" />
+    <Content Include="images\LeftHover.png" />
+    <Content Include="images\LeftNormal.png" />
+    <Content Include="images\RightDown.png" />
+    <Content Include="images\RightHover.png" />
+    <Content Include="images\RightNormal.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
