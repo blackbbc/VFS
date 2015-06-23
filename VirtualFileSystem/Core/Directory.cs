@@ -165,5 +165,20 @@ namespace VirtualFileSystem.Core
             directory.Remove(entry);
         }
 
+        public override ArrayList search(String name)
+        {
+            ArrayList result = new ArrayList();
+
+            //检查儿子
+            foreach (Entry entry in directory)
+                result.AddRange(entry.search(name));
+
+            //检查自己
+            if (this.name.IndexOf(name) >= 0)
+                result.Add(this);
+
+            return result;
+        }
+
     }
 }

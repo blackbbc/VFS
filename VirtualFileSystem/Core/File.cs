@@ -155,5 +155,14 @@ namespace VirtualFileSystem.Core
             //删除inode
             inode.delete();
         }
+
+        public override ArrayList search(string name)
+        {
+            ArrayList result = new ArrayList();
+            if (this.name.IndexOf(name) >= 0)
+                result.Add(this);
+
+            return result;
+        }
     }
 }

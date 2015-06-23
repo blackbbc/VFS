@@ -169,7 +169,7 @@ namespace VirtualFileSystem
             }
         }
 
-        private void listView1_DoubleClick(object sender, EventArgs e)
+        public void OnOpen()
         {
             Entry selectedEntry = (Entry)listView1.SelectedItems[0].Tag;
 
@@ -188,7 +188,17 @@ namespace VirtualFileSystem
                 enterDirectory(directory);
 
             }
+        }
 
+        //打开
+        private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OnOpen();
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            OnOpen();
         }
 
         //设置快捷键
@@ -561,11 +571,47 @@ namespace VirtualFileSystem
                 UpdateGlobalStatus();
         }
 
+        public void OnSearch(String name)
+        {
+            ArrayList searchResultList = currentDir.search(name);
+            listView1.Items.Clear();
+
+            Directory tempDir = new Directory("搜索结果", currentDir);
+
+
+            foreach (Entry entry in searchResultList)
+            {
+                tempDir.add(entry);
+                listView1.Items.Add(entry.getListViewItem());
+            }
+
+            //修改历史表
+            for (int i = history.Count - 1; i > pointer; i--)
+                history.RemoveAt(i);
+
+            pointer++;
+            history.Add(tempDir);
+
+            imageButton1.Enabled = true;
+            imageButton2.Enabled = true;
+
+            if (pointer <= 0)
+                imageButton1.Enabled = false;
+
+            if (pointer >= history.Count - 1)
+                imageButton2.Enabled = false;
+
+            comboBox1.Text = "搜索结果";
+        }
+
         private void comboBox2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                MessageBox.Show("世界你好！");
+                if (comboBox2.Text != null && comboBox2.Text != "")
+                    OnSearch(comboBox2.Text);
         }
+
+
 
     }
 }

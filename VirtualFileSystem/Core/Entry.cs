@@ -38,5 +38,7 @@ namespace VirtualFileSystem.Core
 
         public abstract String getPath();
 
+        public abstract ArrayList search(String name);
+
     }
 }
