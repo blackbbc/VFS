@@ -137,6 +137,7 @@ namespace VirtualFileSystem.Core
 
         public void delete()
         {
+            //刷新位图
             VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.inode_index, false);
         }
     }

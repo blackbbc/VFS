@@ -53,6 +53,7 @@ namespace VirtualFileSystem.Core
 
             //刷新位图
             VFS.BLOCK_GROUPS[this.block_group_index].updateBlockIndex(this.block_index, true);
+
         }
 
         public void saveData(char[] newData)

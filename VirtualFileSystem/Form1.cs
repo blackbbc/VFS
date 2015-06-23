@@ -555,8 +555,26 @@ namespace VirtualFileSystem
             label3.Show();
             label4.Text = "可用空间";
             label4.Show();
-            progressBar1.Show();
+
+            //设置总大小1024MB
+            label7.Show();
+            label7.Text = Config.GROUPS.ToString() + "MB";
+
+            //获取超级块
+            SuperBlock superBlock = VFS.BLOCK_GROUPS[0].super_block;
+
+            //设置可用空间
             label5.Show();
+            long free_blocks = superBlock.s_free_blocks_count;
+            free_blocks /= 1024;
+            label5.Text = free_blocks.ToString() + "MB";
+
+            //设置已用空间
+            progressBar1.Show();
+            long used_blocks = superBlock.s_blocks_count - superBlock.s_free_blocks_count;
+            float percent = used_blocks / superBlock.s_blocks_count;
+            int step = (int)(percent * 100);
+            progressBar1.Value = step;
 
             pictureBox1.Image = Image.FromFile("../../images/disk.png");
             pictureBox1.Show();
@@ -610,8 +628,6 @@ namespace VirtualFileSystem
                 if (comboBox2.Text != null && comboBox2.Text != "")
                     OnSearch(comboBox2.Text);
         }
-
-
 
     }
 }

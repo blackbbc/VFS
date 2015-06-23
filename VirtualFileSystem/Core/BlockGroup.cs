@@ -13,7 +13,7 @@ namespace VirtualFileSystem.Core
     {
         //块组
 
-        SuperBlock super_block; //超级块
+        public SuperBlock super_block; //超级块
 
         int block_group_index; //块组序号
 
@@ -69,7 +69,8 @@ namespace VirtualFileSystem.Core
             {
                 if (!inode_index[i])
                 {
-                    inode_index[i] = true;
+                    //刷新位图
+                    updateINodeIndex(i, true);
                     return inodes[i];
                 }
             }
@@ -78,22 +79,35 @@ namespace VirtualFileSystem.Core
             return null;
         }
 
+        //刷新block
         public void updateBlockIndex(int index, bool flag)
         {
             if (flag)
-                this.g_free_blocks_count -= 1;
+            {
+                this.g_free_blocks_count--;
+                VFS.BLOCK_GROUPS[0].super_block.s_free_blocks_count--;
+            }
             else
-                this.g_free_blocks_count += 1;
-
+            {
+                this.g_free_blocks_count++;
+                VFS.BLOCK_GROUPS[0].super_block.s_free_blocks_count++;
+            }
             this.block_index[index] = flag;
         }
 
+        //刷新Inode
         public void updateINodeIndex(int index, bool flag)
         {
             if (flag)
-                this.g_free_inodes_count -= 1;
+            {
+                this.g_free_inodes_count--;
+                VFS.BLOCK_GROUPS[0].super_block.s_free_inodes_count--;
+            }
             else
-                this.g_free_inodes_count += 1;
+            {
+                this.g_free_inodes_count++;
+                VFS.BLOCK_GROUPS[0].super_block.s_free_inodes_count++;
+            }
             this.inode_index[index] = flag;
         }
 
