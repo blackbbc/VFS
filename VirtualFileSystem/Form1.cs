@@ -38,7 +38,7 @@ namespace VirtualFileSystem
         //关闭窗口
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Utils.SerializeNow();
+            Utils.SerializeNow();
         }
         public void debugMode()
         {
