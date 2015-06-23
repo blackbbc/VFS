@@ -34,5 +34,9 @@ namespace VirtualFileSystem.Core
 
         public abstract void deleteData();
 
+        public abstract Directory getParent();
+
+        public abstract String getPath();
+
     }
 }

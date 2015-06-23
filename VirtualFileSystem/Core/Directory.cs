@@ -30,7 +30,12 @@ namespace VirtualFileSystem.Core
             this.modifiedTime = Utils.getUnixTimeStamp();
         }
 
-        public String getPath()
+        public override Directory getParent()
+        {
+            return parent;
+        }
+
+        public override String getPath()
         {
             //自己是根节点
             if (isRootDir())

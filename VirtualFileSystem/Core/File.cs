@@ -54,7 +54,12 @@ namespace VirtualFileSystem.Core
             }
         }
 
-        public String getPath()
+        public override Directory getParent()
+        {
+            return parent;
+        }
+
+        public override String getPath()
         {
             if (parent.isRootDir())
                 return parent.getPath() + name;

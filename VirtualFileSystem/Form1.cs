@@ -158,7 +158,7 @@ namespace VirtualFileSystem
             selectedEntry.setName(e.Label);
 
             //刷新listview
-            enterDirectory(currentDir);
+            enterDirectory(currentDir, false);
 
             //刷新treeview
             if (selectedEntry.getType() == "文件夹")
@@ -178,7 +178,7 @@ namespace VirtualFileSystem
                 File file = (File)selectedEntry;
                 TextEditor textEditor = new TextEditor(file);
                 textEditor.ShowDialog();
-                enterDirectory(currentDir);
+                enterDirectory(currentDir, false);
             }
             else
             {
@@ -194,7 +194,7 @@ namespace VirtualFileSystem
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.F5)
-                enterDirectory(currentDir);
+                enterDirectory(currentDir, false);
             else if (keyData == Keys.F2)
                 OnRename();
             else if (keyData == Keys.Delete)
@@ -211,7 +211,7 @@ namespace VirtualFileSystem
         //刷新
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            enterDirectory(currentDir);
+            enterDirectory(currentDir, false);
         }
 
 
@@ -248,7 +248,7 @@ namespace VirtualFileSystem
             currentDir.add(newDir);
 
             //刷新listview
-            enterDirectory(currentDir);
+            enterDirectory(currentDir, false);
 
             //刷新treeview
             currentDir.getLinkedTreeNode().Nodes.Add(newDir.getTreeNode());
@@ -278,7 +278,7 @@ namespace VirtualFileSystem
             currentDir.add(newFile);
 
             //刷新listview
-            enterDirectory(currentDir);
+            enterDirectory(currentDir, false);
 
             ListViewItem newItem = null;
             foreach (ListViewItem item in listView1.Items)
@@ -372,7 +372,7 @@ namespace VirtualFileSystem
                     deletedTreeNode.Parent.Nodes.Remove(deletedTreeNode);
                 }
 
-                enterDirectory(currentDir);
+                enterDirectory(currentDir, false);
             }
         }
 
@@ -401,7 +401,12 @@ namespace VirtualFileSystem
         public void OnCut()
         {
             OnCopy();
+
+            //从目录树中删除
+            sharedEntry.getParent().deleteEntry(sharedEntry);
             isCut = true;
+
+            enterDirectory(currentDir, false);
         }
 
         //剪切
@@ -415,23 +420,31 @@ namespace VirtualFileSystem
             if (!粘贴ToolStripMenuItem.Enabled)
                 return;
 
+            //处理剪切
+            if (isCut)
+            {
+                isCut = false;
+                粘贴ToolStripMenuItem.Enabled = false;
+
+                currentDir.add(sharedEntry);
+
+                enterDirectory(currentDir, false);
+
+                return;
+            }
+
+            //处理复制
             String newName = Utils.getLegalCopyName(sharedEntry.getName(), currentDir);
             if (sharedEntry.getType() == "文本文件")
             {
                 File newFile = new File(newName, sharedEntry as File);
                 currentDir.add(newFile);
 
-                enterDirectory(currentDir);
+                enterDirectory(currentDir, false);
             }
             else
             {
                 //复制文件夹，递归复制，Fuck!
-            }
-
-            if (isCut)
-            {
-                isCut = false;
-                粘贴ToolStripMenuItem.Enabled = false;
             }
 
         }
