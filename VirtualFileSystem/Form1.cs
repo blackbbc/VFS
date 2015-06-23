@@ -31,40 +31,42 @@ namespace VirtualFileSystem
 
         private void InitialVFS()
         {
-            ////初始化全局块组
-            //for (int i = 0; i < Config.GROUPS; i++)
-            //    VFS.BLOCK_GROUPS[i] = new BlockGroup(i);
+            debugMode();
 
-            ////初始化目录树
-            //VFS.rootDir = new Directory("/", null);
-
-            //Directory bootDir = new Directory("boot", VFS.rootDir);
-            //Directory etcDir = new Directory("etc", VFS.rootDir);
-            //Directory libDir = new Directory("lib", VFS.rootDir);
-            //Directory homeDir = new Directory("home", VFS.rootDir);
-            //Directory rootDir = new Directory("root", VFS.rootDir);
-            //Directory tempDir = new Directory("temp", VFS.rootDir);
-            //VFS.rootDir.add(bootDir);
-            //VFS.rootDir.add(etcDir);
-            //VFS.rootDir.add(homeDir);
-            //VFS.rootDir.add(libDir);
-            //VFS.rootDir.add(rootDir);
-            //VFS.rootDir.add(tempDir);
-
-            //File file1 = new File("bashrc", etcDir);
-            //File file2 = new File("shadowsocks", etcDir);
-            //etcDir.add(file1);
-            //etcDir.add(file2);
-
-            //Utils.SerializeNow();
-
-            Utils.DeSerializeNow();
+            //Utils.DeSerializeNow();
         }
 
         //关闭窗口
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Utils.SerializeNow();
+            //Utils.SerializeNow();
+        }
+        public void debugMode()
+        {
+            //初始化全局块组
+            for (int i = 0; i < Config.GROUPS; i++)
+                VFS.BLOCK_GROUPS[i] = new BlockGroup(i);
+
+            //初始化目录树
+            VFS.rootDir = new Directory("/", null);
+
+            Directory bootDir = new Directory("boot", VFS.rootDir);
+            Directory etcDir = new Directory("etc", VFS.rootDir);
+            Directory libDir = new Directory("lib", VFS.rootDir);
+            Directory homeDir = new Directory("home", VFS.rootDir);
+            Directory rootDir = new Directory("root", VFS.rootDir);
+            Directory tempDir = new Directory("temp", VFS.rootDir);
+            VFS.rootDir.add(bootDir);
+            VFS.rootDir.add(etcDir);
+            VFS.rootDir.add(homeDir);
+            VFS.rootDir.add(libDir);
+            VFS.rootDir.add(rootDir);
+            VFS.rootDir.add(tempDir);
+
+            File file1 = new File("bashrc", etcDir);
+            File file2 = new File("shadowsocks", etcDir);
+            etcDir.add(file1);
+            etcDir.add(file2);
         }
 
         private void PopulateTreeView()
@@ -108,12 +110,41 @@ namespace VirtualFileSystem
 
             UpdateGlobalStatus();
         }
+        private bool IsGlassEnabled()
+        {
+            if (Environment.OSVersion.Version.Major < 6)
+            {
+                MessageBox.Show(
+                  "How about trying this on Vista?");
+                return false;
+            }
+
+            //Check if DWM is enabled
+            bool isGlassSupported = false;
+            VistaApi.DwmIsCompositionEnabled(ref isGlassSupported);
+            return isGlassSupported;
+        }
 
         public Form1()
         {
             InitializeComponent();
 
             InitialVFS();
+
+            if (!this.IsGlassEnabled())
+                return;
+
+            VistaApi.Margins marg;
+
+            marg.Top = panel1.Height; // extend from the top
+            marg.Left = 0;  // not used in this sample but could be
+            marg.Right = 0; // not used in this sample but could be
+            marg.Bottom = 0;// not used in this sample but could be
+
+            // call the function that extends the sides, 
+            // passing a reference to our inset Margins
+            VistaApi.DwmExtendFrameIntoClientArea(this.Handle, ref marg);   
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -125,6 +156,10 @@ namespace VirtualFileSystem
             pointer = -1;
 
             enterDirectory(currentDir);
+
+            Color c = Color.FromArgb(255, 221, 220, 220);
+            this.TransparencyKey = c;
+            panel1.BackColor = c;
         }
 
 

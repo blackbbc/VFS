@@ -74,6 +74,7 @@
       <DependentUpon>TextEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="VFS.cs" />
+    <Compile Include="VistaApi.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
