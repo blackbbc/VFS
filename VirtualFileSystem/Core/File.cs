@@ -35,6 +35,8 @@ namespace VirtualFileSystem.Core
 
             //复制数据
             this.inode.save(copiedFile.getContent());
+
+            updateCTime();
         }
 
         //创建文件
@@ -52,6 +54,8 @@ namespace VirtualFileSystem.Core
                     break;
                 }
             }
+
+            updateCTime();
         }
 
         public override Directory getParent()
@@ -75,6 +79,8 @@ namespace VirtualFileSystem.Core
         public override void setName(string name)
         {
             this.name = name;
+
+            updateCTime();
         }
         public override string getModifiedTime()
         {
@@ -139,6 +145,8 @@ namespace VirtualFileSystem.Core
         public void save(String content)
         {
             this.inode.save(content);
+
+            parent.updateCTime();
         }
 
         //读文件
@@ -154,6 +162,8 @@ namespace VirtualFileSystem.Core
             inode.clearBlock();
             //删除inode
             inode.delete();
+
+            updateCTime();
         }
 
         public override ArrayList search(string name)
@@ -163,6 +173,12 @@ namespace VirtualFileSystem.Core
                 result.Add(this);
 
             return result;
+        }
+
+        public override void updateCTime()
+        {
+            inode.m_time = Utils.getUnixTimeStamp();
+            parent.updateCTime();
         }
     }
 }

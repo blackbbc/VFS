@@ -40,5 +40,7 @@ namespace VirtualFileSystem.Core
 
         public abstract ArrayList search(String name);
 
+        public abstract void updateCTime();
+
     }
 }

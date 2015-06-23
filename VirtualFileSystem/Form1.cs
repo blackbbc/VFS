@@ -252,6 +252,7 @@ namespace VirtualFileSystem
             }
         }
 
+        //新建文件夹
         public void OnNewFolder()
         {
             String newName = Utils.getLegalNewName("新建文件夹", currentDir);

@@ -28,6 +28,8 @@ namespace VirtualFileSystem.Core
             this.parent = parent;
 
             this.modifiedTime = Utils.getUnixTimeStamp();
+
+            updateCTime();
         }
 
         public override Directory getParent()
@@ -65,6 +67,8 @@ namespace VirtualFileSystem.Core
         public override void setName(string name)
         {
             this.name = name;
+
+            updateCTime();
         }
 
         public override String getModifiedTime()
@@ -93,6 +97,9 @@ namespace VirtualFileSystem.Core
             this.modifiedTime = Utils.getUnixTimeStamp();
 
             directory.Add(entry);
+
+            updateCTime();
+
             return this;
         }
 
@@ -163,6 +170,8 @@ namespace VirtualFileSystem.Core
         public void deleteEntry(Entry entry)
         {
             directory.Remove(entry);
+
+            updateCTime();
         }
 
         public override ArrayList search(String name)
@@ -178,6 +187,13 @@ namespace VirtualFileSystem.Core
                 result.Add(this);
 
             return result;
+        }
+
+        public override void updateCTime()
+        {
+            this.modifiedTime = Utils.getUnixTimeStamp();
+            if (!isRootDir())
+                parent.updateCTime();
         }
 
     }
