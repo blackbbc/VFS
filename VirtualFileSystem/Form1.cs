@@ -189,6 +189,7 @@ namespace VirtualFileSystem
                 }
 
             ListViewItem selectedItem = listView1.Items[e.Item];
+
             Entry selectedEntry = (Entry)selectedItem.Tag;
             selectedEntry.setName(e.Label);
 
@@ -346,6 +347,8 @@ namespace VirtualFileSystem
 
         private void OnRename()
         {
+            if (listView1.SelectedItems.Count == 0)
+                return;
             ListViewItem selectedItem = (ListViewItem)listView1.SelectedItems[0];
             selectedItem.BeginEdit();
         }
@@ -400,6 +403,9 @@ namespace VirtualFileSystem
 
         private void OnDelete()
         {
+            if (listView1.SelectedItems.Count == 0)
+                return;
+
             Entry deletedEntry = listView1.SelectedItems[0].Tag as Entry;
             var result = MessageBox.Show("确定要删除"+deletedEntry.getName()+"吗", "删除"+deletedEntry.getType(), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -430,8 +436,13 @@ namespace VirtualFileSystem
 
         public void OnCopy()
         {
+            if (listView1.SelectedItems.Count == 0)
+                return;
+
             Entry copiedEntry = listView1.SelectedItems[0].Tag as Entry;
             sharedEntry = copiedEntry;
+
+            isCut = false;
 
             粘贴ToolStripMenuItem.Enabled = true;
 
@@ -446,6 +457,8 @@ namespace VirtualFileSystem
 
         public void OnCut()
         {
+            if (listView1.SelectedItems.Count == 0)
+                return;
             OnCopy();
 
             //从目录树中删除
@@ -579,6 +592,11 @@ namespace VirtualFileSystem
             }
             else
             {
+                label4.Text = "大小";
+                label4.Show();
+
+                label5.Text = selectedEntry.getSize();
+                label5.Show();
                 //设置图片
                 pictureBox1.Image = Image.FromFile("../../images/folderB.png");
             }
@@ -695,6 +713,10 @@ namespace VirtualFileSystem
                 TreeNode rootNode = VFS.rootDir.getTreeNode();
                 treeView1.Nodes.Clear();
                 treeView1.Nodes.Add(rootNode);
+
+                //刷新history
+                history.Clear();
+
 
                 enterDirectory(VFS.rootDir);
             }

@@ -74,15 +74,11 @@ namespace VirtualFileSystem.Core
 
         public static void DeSerializeNow()
         {
-            VFS vfs = new VFS();
             FileStream fileStream = new FileStream("./vfs.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
             BinaryFormatter b = new BinaryFormatter();
-            vfs = b.Deserialize(fileStream) as VFS;
-            vfs.update();
-
-            vfs = Serializer.Deserialize<VFS>(fileStream);
-            vfs.update();
-
+            (b.Deserialize(fileStream) as VFS).update();
+            //VFS vfs = b.Deserialize(fileStream) as VFS;
+            //vfs.update();
             fileStream.Close();
         }
     }

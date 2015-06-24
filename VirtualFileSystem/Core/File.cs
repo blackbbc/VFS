@@ -104,11 +104,25 @@ namespace VirtualFileSystem.Core
             return "文本文件";
         }
 
+        public override long getSizeNum()
+        {
+            return inode.getSize();
+        }
+
         public override string getSize()
         {
-            long size = inode.getSize();
-            size /= 1024;
-            return size.ToString() + "kb";
+            long size = getSizeNum();
+            if (size >= 1024 * 1024)
+            {
+                size /= 1024 * 1024;
+                return size.ToString() + "MB";
+            }
+            else
+            {
+                size /= 1024;
+                return size.ToString() + "KB";
+            }
+
         }
 
         public override Entry add(Entry entry)

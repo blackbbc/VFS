@@ -74,7 +74,7 @@ namespace VirtualFileSystem.Core
             {
                 if (!inode_index[i])
                 {
-                    //刷新位图
+                    //刷新Inode位图
                     updateINodeIndex(i, true);
                     return inodes[i];
                 }

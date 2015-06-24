@@ -26,6 +26,8 @@ namespace VirtualFileSystem.Core
 
         public abstract String getSize();
 
+        public abstract long getSizeNum();
+
         public abstract String getContent();
 
         public abstract Entry add(Entry entry);

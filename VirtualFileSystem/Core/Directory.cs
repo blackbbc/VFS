@@ -115,9 +115,29 @@ namespace VirtualFileSystem.Core
             return "文件夹";
         }
 
+        public override long getSizeNum()
+        {
+            long size = 0;
+
+            foreach (Entry entry in directory)
+                size += entry.getSizeNum();
+
+            return size;
+        }
+
         public override String getSize()
         {
-            return "";
+            long size = getSizeNum();
+            if (size >= 1024 * 1024)
+            {
+                size /= 1024 * 1024;
+                return size.ToString() + "MB";
+            }
+            else
+            {
+                size /= 1024;
+                return size.ToString() + "KB";
+            }
         }
 
         public override String getContent()
@@ -198,7 +218,11 @@ namespace VirtualFileSystem.Core
                 return false;
         }
 
-        public override void deleteData() { }
+        public override void deleteData() 
+        {
+            foreach (Entry entry in directory)
+                entry.deleteData();
+        }
 
         public void deleteEntry(Entry entry)
         {
