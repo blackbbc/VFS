@@ -80,7 +80,7 @@ namespace VirtualFileSystem
             currentDir = dir;
             listView1.Items.Clear();
 
-            ArrayList entries = dir.getEntries();
+            List<Entry> entries = dir.getEntries();
 
             foreach (Entry entry in entries)
             {
@@ -178,7 +178,7 @@ namespace VirtualFileSystem
             }
 
             //检查文件重名
-            ArrayList entries = currentDir.getEntries();
+            List<Entry> entries = currentDir.getEntries();
 
             foreach (Entry entry in entries)
                 if (entry.getName() == e.Label)

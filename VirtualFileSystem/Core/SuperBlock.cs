@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ProtoBuf;
+
 using VirtualFileSystem;
 
 namespace VirtualFileSystem.Core
 {
 
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     class SuperBlock
     {
         public long s_inodes_count;

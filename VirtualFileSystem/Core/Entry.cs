@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ProtoBuf;
+
 using System.Windows.Forms;
 using System.Collections;
 
 namespace VirtualFileSystem.Core
 {
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     public abstract class Entry
     {
 
@@ -29,7 +32,7 @@ namespace VirtualFileSystem.Core
 
         public abstract TreeNode getTreeNode();
 
-        public abstract ArrayList getEntries();
+        public abstract List<Entry> getEntries();
 
         public abstract ListViewItem getListViewItem();
 

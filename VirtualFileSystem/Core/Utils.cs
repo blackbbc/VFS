@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+
+using ProtoBuf;
+using ProtoBuf.Meta;
 
 using System.Collections;
 
@@ -62,7 +66,7 @@ namespace VirtualFileSystem.Core
 
         public static void SerializeNow()
         {
-            FileStream fileStrean = new FileStream("./VFS.dat", FileMode.Create);
+            FileStream fileStrean = new FileStream("./vfs.bin", FileMode.Create);
             BinaryFormatter b = new BinaryFormatter();
             b.Serialize(fileStrean, new VFS());
             fileStrean.Close();
@@ -71,10 +75,14 @@ namespace VirtualFileSystem.Core
         public static void DeSerializeNow()
         {
             VFS vfs = new VFS();
-            FileStream fileStream = new FileStream("./VFS.dat", FileMode.Open, FileAccess.Read, FileShare.Read);
+            FileStream fileStream = new FileStream("./vfs.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
             BinaryFormatter b = new BinaryFormatter();
             vfs = b.Deserialize(fileStream) as VFS;
             vfs.update();
+
+            vfs = Serializer.Deserialize<VFS>(fileStream);
+            vfs.update();
+
             fileStream.Close();
         }
     }
@@ -97,4 +105,5 @@ namespace VirtualFileSystem.Core
             return String.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text);
         }
     }
+
 }

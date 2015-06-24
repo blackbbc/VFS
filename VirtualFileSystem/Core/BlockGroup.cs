@@ -4,28 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ProtoBuf;
 
 using System.Collections;
 
 namespace VirtualFileSystem.Core
 {
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     class BlockGroup
     {
         //块组
 
         public SuperBlock super_block; //超级块
 
-        int block_group_index; //块组序号
+        private int block_group_index; //块组序号
 
-        long g_free_blocks_count;
-        long g_free_inodes_count;
+        private long g_free_blocks_count;
+        private long g_free_inodes_count;
 
-        bool[] block_index;
-        bool[] inode_index;
+        private bool[] block_index;
+        private bool[] inode_index;
 
-        INode[] inodes;
-        Block[] blocks;
+        private INode[] inodes;
+        private Block[] blocks;
+
+        public BlockGroup() { }
 
         public BlockGroup(int block_group_index)
         {

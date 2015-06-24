@@ -34,7 +34,10 @@
   <ItemGroup>
     <Reference Include="ImageButton, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Sweet\Desktop\ImageButton\ImageButton\bin\Debug\ImageButton.dll</HintPath>
+      <HintPath>lib\ImageButton.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>lib\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

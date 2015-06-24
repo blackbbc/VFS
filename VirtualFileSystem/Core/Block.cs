@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 using System.Collections;
 
+using ProtoBuf;
 
 using VirtualFileSystem;
 
 namespace VirtualFileSystem.Core
 {
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     class Block
     {
         public char[] data;        //数据
-        public ArrayList blocks;   //索引表
+        public List<Block> blocks; //索引表
         private int flag;      //表示类型 0 -- 数据 1 -- 一级索引 2 -- 二级索引
         public bool effective;     //是否有效
 
         private int block_group_index; //所在块组号
         private int block_index; //所在块号
+
+        public Block() { }
 
         public Block(int block_group_index, int block_index)
         {
@@ -48,7 +52,7 @@ namespace VirtualFileSystem.Core
             }
             else
             {
-                this.blocks = new ArrayList();
+                this.blocks = new List<Block>();
                 this.data = null;
             }
 

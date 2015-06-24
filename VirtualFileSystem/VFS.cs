@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 using System.Collections;
 
+using ProtoBuf;
+
 using VirtualFileSystem.Core;
 
 namespace VirtualFileSystem
 {
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     class VFS
     {
         public static Directory rootDir;

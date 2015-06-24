@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ProtoBuf;
+
 using System.Collections;
 
 using VirtualFileSystem.Core;
@@ -11,6 +13,7 @@ using VirtualFileSystem.Core;
 namespace VirtualFileSystem.Core
 {
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     class INode
     {
         public Block[] blocks; //数据块指针数组
@@ -19,6 +22,8 @@ namespace VirtualFileSystem.Core
         public bool is_open;
         private int block_group_index; //所在块组号
         private int inode_index; //所在inode号
+
+        public INode() { }
 
 
         public INode(int block_group_index, int inode_index)

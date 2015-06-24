@@ -4,18 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ProtoBuf;
+
 using System.Windows.Forms;
 using System.Collections;
 
 namespace VirtualFileSystem.Core
 {
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     public class File: Entry
     {
         private INode inode;
         private String name;
 
         //记录父目录
+        [ProtoMember(101, AsReference = true)]
         public Directory parent;
 
         //复制构造函数
@@ -117,7 +121,7 @@ namespace VirtualFileSystem.Core
             throw new NotImplementedException();
         }
 
-        public override ArrayList getEntries()
+        public override List<Entry> getEntries()
         {
             throw new NotImplementedException();
         }

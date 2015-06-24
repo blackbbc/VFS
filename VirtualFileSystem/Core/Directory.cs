@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+
+using System.IO;
+
+using ProtoBuf;
+using ProtoBuf.Meta;
 
 using System.Windows.Forms;
 using System.Collections;
@@ -10,17 +17,22 @@ using System.Collections;
 namespace VirtualFileSystem.Core
 {
     [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     public class Directory: Entry
     {
-        private String name;
-        private long modifiedTime;
+        public String name;
+        public long modifiedTime;
 
-        private TreeNode treeNode;
+        public TreeNode treeNode;
 
         //记录父目录
         public Directory parent;
 
-        private ArrayList directory = new ArrayList();
+        public List<Entry> directory = new List<Entry>();
+
+        //默认构造函数
+        public Directory() { }
+
 
         //复制构造函数
         public Directory (String name, Directory copiedDir, Directory parent)
@@ -145,7 +157,7 @@ namespace VirtualFileSystem.Core
             return this.treeNode;
         }
 
-        public override ArrayList getEntries()
+        public override List<Entry> getEntries()
         {
             return directory;
         }
@@ -215,6 +227,80 @@ namespace VirtualFileSystem.Core
             this.modifiedTime = Utils.getUnixTimeStamp();
             if (!isRootDir())
                 parent.updateCTime();
+        }
+
+    }
+
+    [Serializable]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
+    public class DirectorySurrogate
+    {
+        public String name;
+
+        public long modifiedTime;
+
+        public byte[] treeNode;
+
+        [ProtoMember(102, AsReference = true)]
+        public Directory parent;
+
+        public List<Entry> directory;
+
+
+        //代理转正常的值
+        public static implicit operator Directory(DirectorySurrogate suggorage)
+        {
+            return suggorage == null ? null : new Directory();
+
+            return suggorage == null ? null : new Directory
+            {
+                name = suggorage.name,
+                modifiedTime = suggorage.modifiedTime,
+                treeNode = Deserialize(suggorage.treeNode) as TreeNode,
+                parent = suggorage.parent,
+                directory = suggorage.directory
+            };
+
+        }
+
+        //正常的值转代理
+        public static implicit operator DirectorySurrogate(Directory source)
+        {
+            return source == null ? null : new DirectorySurrogate
+            {
+                name = source.name,
+                modifiedTime = source.modifiedTime,
+                treeNode = Serialize(source.treeNode),
+                parent = source.parent,
+                directory = source.directory
+            };
+        }
+
+        //序列化
+        private static byte[] Serialize(Object o)
+        {
+            if (o == null)
+                return null;
+
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, o);
+                return ms.ToArray();
+            }
+        }
+
+        //反序列化
+        private static Object Deserialize(byte[] b)
+        {
+            if (b == null)
+                return null;
+
+            using (var ms = new MemoryStream(b))
+            {
+                var formatter = new BinaryFormatter();
+                return formatter.Deserialize(ms);
+            }
         }
 
     }
