@@ -30,9 +30,13 @@ namespace VirtualFileSystem
 
         private void InitialVFS()
         {
-            //debugMode();
-
-            Utils.DeSerializeNow();
+            if (System.IO.File.Exists("./vfs.bin"))
+                //System.Console.WriteLine("文件存在");
+                Utils.DeSerializeNow();
+            else
+                //System.Console.WriteLine("文件不存在");
+                //初始化
+                debugMode();
         }
 
         //关闭窗口
