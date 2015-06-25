@@ -98,6 +98,7 @@ namespace VirtualFileSystem.Core
 
             for (int i = 0; i < num; i++)
             {
+
                 //首先获取一段字符串
                 long realBlockSize = Math.Min(Config.BLOCK_SIZE, length - i * Config.BLOCK_SIZE);
                 char[] content_sequence = new char[realBlockSize];

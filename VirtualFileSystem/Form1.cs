@@ -591,7 +591,7 @@ namespace VirtualFileSystem
                 label8.Text = (selectedEntry as File).getCreatedTime();
 
                 //设置图片
-                pictureBox1.Image = Image.FromFile("../../images/fileB.png");
+                pictureBox1.Image = Properties.Resources.fileB;
 
             }
             else
@@ -602,7 +602,7 @@ namespace VirtualFileSystem
                 label5.Text = selectedEntry.getSize();
                 label5.Show();
                 //设置图片
-                pictureBox1.Image = Image.FromFile("../../images/folderB.png");
+                pictureBox1.Image = Properties.Resources.folderB;
             }
 
         }
@@ -640,7 +640,7 @@ namespace VirtualFileSystem
             int step = (int)(percent * 100);
             progressBar1.Value = step;
 
-            pictureBox1.Image = Image.FromFile("../../images/disk.png");
+            pictureBox1.Image = Properties.Resources.disk;
             pictureBox1.Show();
 
         }

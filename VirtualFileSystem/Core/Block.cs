@@ -35,10 +35,10 @@ namespace VirtualFileSystem.Core
 
         public bool isFull()
         {
-            if (blocks.Count <= Config.BLOCK_SIZE)
-                return false;
-            else
+            if (flag == 0 || blocks.Count >= Config.BLOCK_SIZE)
                 return true;
+            else
+                return false;
         }
 
         public void setFlag(int flag)
@@ -65,17 +65,28 @@ namespace VirtualFileSystem.Core
         {
             if (this.flag == 0)
             {
+                //自己是用来存数据的
                 this.data = newData;
             }
             else
             {
-                //找一个新的block存储
-                ArrayList freeBlocks = VFS.getFreeBlocks(1);
-                Block freeBlock = freeBlocks[0] as Block;
-                freeBlock.setFlag(this.flag - 1);
-                freeBlock.saveData(newData);
+                //自己已经是索引了
+                //找索引的尾巴是不是满了
+                //Block tailBlock = blocks[blocks.Count - 1];
+                if (blocks.Count == 0 || blocks[blocks.Count-1].isFull())
+                {
+                    //尾巴已经满了，找新的空间
+                    ArrayList freeBlocks = VFS.getFreeBlocks(1);
+                    Block freeBlock = freeBlocks[0] as Block;
+                    freeBlock.setFlag(this.flag - 1);
+                    freeBlock.saveData(newData);
 
-                blocks.Add(freeBlock);
+                    blocks.Add(freeBlock);
+                }
+                else
+                    //尾巴没有满，存在尾巴里
+                    blocks[blocks.Count - 1].saveData(newData);
+
             }
         }
 
